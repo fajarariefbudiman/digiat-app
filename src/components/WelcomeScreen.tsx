@@ -54,11 +54,8 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onFinish }) => {
         {!greeted ? (
           <div className="space-y-8 md:space-y-10">
             <div className="space-y-4 text-center">
-              <div className="inline-block">
-                <span className="text-5xl md:text-6xl">👋</span>
-              </div>
               <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight px-2 bg-gradient-to-r from-white via-red-100 to-white bg-clip-text text-transparent">
-                Hai, bagaimana kalau kita kenalan terlebih dahulu?
+               Hai👋, Mari kita mulai perkenalan kecil supaya pengalamanmu di sini lebih menyenangkan.
               </h1>
             </div>
             
@@ -92,12 +89,12 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onFinish }) => {
                 👋
               </div>
               <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-white via-red-100 to-white bg-clip-text text-transparent">
-                Hi, {name}!
+                Hallo, {name}!
               </h2>
             </div>
             <div className="h-1 w-24 md:w-32 mx-auto bg-gradient-to-r from-transparent via-red-500 to-transparent rounded-full"></div>
             <p className="text-base sm:text-lg md:text-xl text-gray-300 max-w-xl mx-auto leading-relaxed px-4">
-              Salam kenal, selamat datang di web personal Fajar Arief. Jangan sungkan untuk menghubungiku langsung melalui media sosial yang ada {name}.
+              Salam kenal, selamat datang di web personalku. Jangan sungkan untuk menghubungiku langsung melalui media sosial yang ada {name}.
             </p>
           </div>
         )}
