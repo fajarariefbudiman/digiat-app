@@ -97,7 +97,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onFinish }) => {
             </div>
             <div className="h-1 w-24 md:w-32 mx-auto bg-gradient-to-r from-transparent via-red-500 to-transparent rounded-full"></div>
             <p className="text-base sm:text-lg md:text-xl text-gray-300 max-w-xl mx-auto leading-relaxed px-4">
-              Salam kenal, selamat datang di web personal Fajar Arief. Jangan sungkan untuk menghubungiku langsung melalui media sosial yang ada {name}.
+              Salam kenal, selamat datang di web personalku. Jangan sungkan untuk menghubungiku langsung melalui media sosial yang ada {name}.
             </p>
           </div>
         )}
