@@ -25,7 +25,7 @@ const App = () => {
         <Sonner />
 
         {!visited ? (
-          <WelcomeScreen />
+          <WelcomeScreen onFinish={() => setVisited(true)} />
         ) : (
           <BrowserRouter>
             <Routes>

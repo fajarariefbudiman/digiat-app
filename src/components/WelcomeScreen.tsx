@@ -2,7 +2,11 @@ import { useState, useEffect } from "react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 
-export const WelcomeScreen = () => {
+interface WelcomeScreenProps {
+  onFinish: () => void;
+}
+
+export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onFinish }) => {
   const [visible, setVisible] = useState(false);
   const [fadeOut, setFadeOut] = useState(false);
   const [name, setName] = useState("");
@@ -12,6 +16,8 @@ export const WelcomeScreen = () => {
     const visited = localStorage.getItem("visited");
     if (!visited) {
       setVisible(true);
+    } else {
+      onFinish();
     }
   }, []);
 
@@ -19,29 +25,34 @@ export const WelcomeScreen = () => {
     e.preventDefault();
     setGreeted(true);
 
-    await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        access_key: "9c2d3e04-e2c8-4716-ae94-c6ceb472dfe3",
-        name,
-        message: `User ${name} baru saja mengunjungi website kamu.`,
-      }),
-    });
+    try {
+      await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          access_key: "9c2d3e04-e2c8-4716-ae94-c6ceb472dfe3",
+          name,
+          message: `User ${name} baru saja mengunjungi website kamu.`,
+        }),
+      });
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
 
     setTimeout(() => {
       setFadeOut(true);
       setTimeout(() => {
         setVisible(false);
         localStorage.setItem("visited", "true");
-      }, 1000); 
+        onFinish();
+      }, 1000);
     }, 2500);
   };
 
   if (!visible) return null;
 
   return (
-    <div className={`fixed inset-0 z-50 flex flex-col items-center justify-center text-center bg-background text-foreground transition-opacity duration-1000 ${fadeOut ? "opacity-0 pointer-events-none" : "opacity-100"}`}>
+    <div className={`fixed inset-0 z-50 flex flex-col items-center justify-center text-center bg-black text-white transition-opacity duration-1000 ${fadeOut ? "opacity-0 pointer-events-none" : "opacity-100"}`}>
       {!greeted ? (
         <>
           <h1 className="text-3xl md:text-5xl font-bold mb-6 animate-fade-in">Hai👋, bagaimana kalau kita kenalan terlebih dahulu?</h1>
@@ -55,7 +66,7 @@ export const WelcomeScreen = () => {
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
-              className="w-64 sm:w-80 bg-muted border-border"
+              className="w-64 sm:w-80 bg-gray-800 text-white border-gray-600"
             />
             <Button
               type="submit"
@@ -68,7 +79,7 @@ export const WelcomeScreen = () => {
       ) : (
         <div className="animate-fade-in space-y-4">
           <h2 className="text-4xl font-semibold">Hi, {name}! 👋</h2>
-          <p className="text-lg text-muted-foreground max-w-xl mx-auto">Salam kenal, selamat datang di web personal Fajar Arief. Jangan sungkan untuk menghubungiku langsung melalui media sosial yang ada {name}.</p>
+          <p className="text-lg text-gray-300 max-w-xl mx-auto">Salam kenal, selamat datang di web personal Fajar Arief. Jangan sungkan untuk menghubungiku langsung melalui media sosial yang ada {name}.</p>
         </div>
       )}
     </div>
