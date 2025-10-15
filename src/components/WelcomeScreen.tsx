@@ -54,7 +54,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onFinish }) => {
         {!greeted ? (
           <div className="space-y-8 md:space-y-10">
             <div className="space-y-4 text-center">
-              <div className="inline-block animate-bounce">
+              <div className="inline-block">
                 <span className="text-5xl md:text-6xl">👋</span>
               </div>
               <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight px-2 bg-gradient-to-r from-white via-red-100 to-white bg-clip-text text-transparent">
