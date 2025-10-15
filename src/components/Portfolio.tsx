@@ -7,15 +7,20 @@ const websiteProjects = [
   {
     id: 1,
     name: "ERP Dokterhub",
-    description:
-      "Comprehensive Enterprise Resource Planning system for clinic management at PT Gerin Mitra Husada, Jakarta. Developed as a Fullstack Developer using Laravel and Bootstrap 5. Includes modules for patient management, appointment scheduling, inventory tracking, billing, and chat via Pusher. Used internally by clinic staff and administrators.",
-    image: "https://images.unsplash.com/photo-1557821552-17105176677c?w=600&q=80",
+    description: {
+      id: "Sistem ERP (Enterprise Resource Planning) untuk manajemen klinik di PT Gerin Mitra Husada, Jakarta. Dikembangkan sebagai Fullstack Developer menggunakan Laravel dan Bootstrap 5. Termasuk modul manajemen pasien, jadwal janji temu, inventori, tagihan, dan chat melalui Pusher. Digunakan secara internal oleh staf dan admin klinik.",
+      en: "Comprehensive ERP (Enterprise Resource Planning) system for clinic management at PT Gerin Mitra Husada, Jakarta. Developed as a Fullstack Developer using Laravel and Bootstrap 5. Includes modules for patient management, appointment scheduling, inventory tracking, billing, and chat via Pusher. Used internally by clinic staff and administrators.",
+    },
+    image: "",
   },
   {
     id: 2,
     name: "Web EFO (Esports Football One)",
-    description: "Frontend development for EFO – an esports organization platform. Designed a responsive and interactive UI with Bootstrap and Laravel for real-time team management and match tracking. Used internally by EFO’s admin and players.",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80",
+    description: {
+      id: "Frontend untuk EFO — platform organisasi esports. Merancang antarmuka responsif dan interaktif menggunakan Bootstrap dan Laravel untuk manajemen tim serta pelacakan pertandingan secara real-time. Digunakan secara internal oleh admin dan pemain EFO.",
+      en: "Frontend development for EFO – an esports organization platform. Designed a responsive and interactive UI with Bootstrap and Laravel for real-time team management and match tracking. Used internally by EFO’s admin and players.",
+    },
+    image: "",
   },
 ];
 
@@ -23,16 +28,22 @@ const websiteSampleProjects = [
   {
     id: 1,
     name: "MotoShop Template",
-    description: "Template for a modern motorcycle e-commerce website built with React and Tailwind CSS.",
+    description: {
+      id: "Template e-commerce modern bertema motor dengan desain gelap, dibangun menggunakan React dan Tailwind CSS.",
+      en: "Template for a modern motorcycle e-commerce website built with React and Tailwind CSS.",
+    },
     image: "/img/motoshop.png",
     url: "https://motoshop-five.vercel.app/",
   },
   {
     id: 2,
     name: "Vutsal Store Template",
-    description: "Landing page concept for a sports gear store with clean, green modern aesthetics.",
+    description: {
+      id: "Konsep landing page untuk toko perlengkapan olahraga dengan desain hijau yang modern dan bersih.",
+      en: "Landing page concept for a sports gear store with clean, green modern aesthetics.",
+    },
     image: "/img/vutsal.png",
-    url: "#",
+    url: "https://vutsal-store.vercel.app/",
   },
 ];
 
@@ -40,23 +51,32 @@ const mobileProjects = [
   {
     id: 1,
     name: "Hemoku",
-    description: "Backend development for Hemoku mobile app in collaboration with Stikes Widya Dharma Husada. Developed secure RESTful API with Laravel, focused on anemia screening and patient management. Available soon on Play Store.",
+    description: {
+      id: "Pengembangan backend untuk aplikasi Hemoku bekerja sama dengan Stikes Widya Dharma Husada dan dosen Universitas Pamulang. Fokus saya adalah membangun backend menggunakan Laravel untuk skrining anemia dan manajemen pasien. Segera hadir di Play Store.",
+      en: "Backend development for Hemoku mobile app in collaboration with Stikes Widya Dharma Husada and lecturers from Universitas Pamulang. My role focused on building the backend with Laravel for anemia screening and patient management. Available soon on Play Store.",
+    },
     image: "/img/hemoku.jpeg",
     downloadUrl: "soon",
   },
   {
     id: 2,
     name: "M-Diabetic Care",
-    description: "Backend system for M-Diabetic Care — a mobile app for diabetes screening and management. Built using Laravel with focus on performance and security. Coming soon on Play Store.",
+    description: {
+      id: "Sistem backend untuk aplikasi M-Diabetic Care bekerja sama dengan Stikes Widya Dharma Husada dan dosen Universitas Pamulang — alat bantu skrining dan manajemen diabetes. Fokus saya adalah membangun backend menggunakan Laravel dengan performa dan keamanan tinggi. Segera hadir di Play Store.",
+      en: "Backend system for M-Diabetic Care mobile app in collaboration with Stikes Widya Dharma Husada and lecturers from Universitas Pamulang — a tool for diabetes screening and management. My role focused on building the backend with Laravel with emphasis on performance and security. Coming soon on Play Store.",
+    },
     image: "/img/diabetic.jpeg",
     downloadUrl: "soon",
   },
   {
     id: 3,
     name: "Gunita",
-    description: "Fullstack mobile app for herbal plant management in Desa Gunaksa, Bali. Built with Flutter (frontend) and Go (backend). Features include plant database, consultation, and e-commerce. Available for download.",
+    description: {
+      id: "Aplikasi mobile fullstack untuk manajemen tanaman herbal di Desa Gunaksa, Bali. Dikembangkan bekerja sama dengan mahasiswa dan dosen Universitas Udayana serta pemerintah daerah setempat. Saya membangun backend dengan Go dan berkontribusi sebagian pada tampilan menggunakan Flutter. Fitur mencakup database tanaman, konsultasi, dan e-commerce.",
+      en: "Fullstack mobile app for herbal plant management in Desa Gunaksa, Bali. Developed in collaboration with students and lecturers from Universitas Udayana and local government. I built the backend with Go and contributed partially to the frontend using Flutter. Features include plant database, consultation, and e-commerce.",
+    },
     image: "/img/gunita.jpeg",
-    downloadUrl: "#",
+    downloadUrl: "soon",
   },
 ];
 
@@ -64,28 +84,34 @@ const mobileSampleProjects = [
   {
     id: 1,
     name: "Sample Todo App",
-    description: "A simple Todo mobile app built with Flutter, demonstrating basic state management.",
-    image: "https://images.unsplash.com/photo-1534790566855-4cb788d389ec?w=400&q=80",
+    description: {
+      id: "Aplikasi Todo sederhana berbasis Flutter yang mendemonstrasikan manajemen state dasar.",
+      en: "A simple Todo mobile app built with Flutter, demonstrating basic state management.",
+    },
+    image: "https://images.unsplash.com/photo-1590608897129-79da98d159d9?w=400&q=80",
     downloadUrl: "#",
   },
   {
     id: 2,
     name: "Sample E-commerce App",
-    description: "Starter kit for a mobile shopping app built with Flutter and REST API integration.",
-    image: "https://images.unsplash.com/photo-1598300052201-43c52924652b?w=400&q=80",
+    description: {
+      id: "Starter kit aplikasi belanja mobile dengan integrasi REST API dan Flutter.",
+      en: "Starter kit for a mobile shopping app built with Flutter and REST API integration.",
+    },
+    image: "https://images.unsplash.com/photo-1607083206968-13611e3fbb0a?w=400&q=80",
     downloadUrl: "#",
   },
 ];
 
 export const Portfolio = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [activeTab, setActiveTab] = useState<"website" | "websiteSample" | "mobile" | "mobileSample">("website");
 
   const tabs = [
     { id: "website", label: t("portfolio.website") },
-    { id: "websiteSample", label: "Sample Website" },
+    { id: "websiteSample", label: language === "id" ? "Contoh Website" : "Sample Website" },
     { id: "mobile", label: t("portfolio.mobile") },
-    { id: "mobileSample", label: "Sample Mobile" },
+    { id: "mobileSample", label: language === "id" ? "Contoh Mobile" : "Sample Mobile" },
   ];
 
   const getProjects = () => {
@@ -144,10 +170,10 @@ export const Portfolio = () => {
               <div className="p-6 flex flex-col flex-grow">
                 <div className="flex-grow space-y-3">
                   <h3 className="text-xl font-semibold text-foreground">{project.name}</h3>
-                  <p className="text-muted-foreground text-justify">{project.description}</p>
+                  <p className="text-muted-foreground text-justify">{project.description[language]}</p>
                 </div>
 
-                {/* Button Section - Always at bottom */}
+                {/* Buttons */}
                 <div className="mt-4">
                   {activeTab === "websiteSample" && (
                     <Button
@@ -168,7 +194,7 @@ export const Portfolio = () => {
                         className="w-full gap-2 border-muted-foreground text-muted-foreground cursor-not-allowed"
                       >
                         <Clock className="h-4 w-4" />
-                        Coming Soon on Play Store
+                        {language === "id" ? "Segera Hadir di Play Store" : "Coming Soon on Play Store"}
                       </Button>
                     ) : (
                       <Button
@@ -181,7 +207,6 @@ export const Portfolio = () => {
                       </Button>
                     ))}
 
-                  {/* ✅ Added for Sample Mobile */}
                   {activeTab === "mobileSample" &&
                     (project.downloadUrl === "#" ? (
                       <Button
@@ -190,7 +215,7 @@ export const Portfolio = () => {
                         className="w-full gap-2 border-muted-foreground text-muted-foreground cursor-not-allowed"
                       >
                         <Clock className="h-4 w-4" />
-                        Coming Soon
+                        {language === "id" ? "Segera Hadir" : "Coming Soon"}
                       </Button>
                     ) : (
                       <Button

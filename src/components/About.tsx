@@ -25,7 +25,7 @@ const softSkills = [
 ];
 
 export const About = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   return (
     <section
@@ -51,24 +51,39 @@ export const About = () => {
 
           {/* About text */}
           <div className="animate-slide-up space-y-6 text-justify">
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground">About Me</h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground">{t("about.title")}</h2>
 
-            <h3 className="text-lg font-semibold text-primary uppercase tracking-wide">SOFTWARE DEVELOPER</h3>
+            <h3 className="text-lg font-semibold text-primary uppercase tracking-wide">{language === "id" ? "PENGEMBANG PERANGKAT LUNAK" : "SOFTWARE DEVELOPER"}</h3>
 
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              Hello, my name is <span className="text-foreground font-semibold">Fajar Arief Budiman</span>. I'm a software developer who enjoys creating websites, applications, and systems that are both reliable and easy to use.
-            </p>
-            <p className="text-lg text-muted-foreground leading-relaxed">I focus on writing clean and maintainable code, designing systems that perform well, and delivering solutions that meet real needs without unnecessary complexity.</p>
-            <p className="text-lg text-muted-foreground leading-relaxed">My goal is to craft digital products that combine good design, practicality, and seamless user experiences.</p>
+            {language === "id" ? (
+              <>
+                <p className="text-lg text-muted-foreground leading-relaxed">
+                  Halo, nama saya <span className="text-foreground font-semibold">Fajar Arief Budiman</span>. Saya seorang pengembang perangkat lunak yang senang membuat website, aplikasi, dan sistem yang andal serta mudah digunakan.
+                </p>
+                <p className="text-lg text-muted-foreground leading-relaxed">
+                  Saya berfokus pada penulisan kode yang bersih dan mudah dirawat, merancang sistem dengan performa tinggi, serta menghadirkan solusi yang benar-benar menjawab kebutuhan pengguna tanpa kompleksitas yang tidak perlu.
+                </p>
+                <p className="text-lg text-muted-foreground leading-relaxed">Tujuan saya adalah menciptakan produk digital yang memadukan desain yang baik, fungsionalitas, dan pengalaman pengguna yang mulus.</p>
+              </>
+            ) : (
+              <>
+                <p className="text-lg text-muted-foreground leading-relaxed">
+                  Hello, my name is <span className="text-foreground font-semibold">Fajar Arief Budiman</span>. I'm a software developer who enjoys creating websites, applications, and systems that are both reliable and easy to use.
+                </p>
+                <p className="text-lg text-muted-foreground leading-relaxed">I focus on writing clean and maintainable code, designing systems that perform well, and delivering solutions that meet real needs without unnecessary complexity.</p>
+                <p className="text-lg text-muted-foreground leading-relaxed">My goal is to craft digital products that combine good design, practicality, and seamless user experiences.</p>
+              </>
+            )}
 
             {/* Contact Button */}
-            <Button
-              size="lg"
-              className="bg-primary hover:bg-primary/90 text-primary-foreground gap-2"
+            <a
+              href="/resume/resume-fajar-arief-budiman.pdf"
+              download
+              className="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground py-3 px-6 rounded-lg font-semibold"
             >
               <Download className="h-5 w-5" />
-              Let’s Work Together
-            </Button>
+              {language === "id" ? "Unduh Resume" : "Download Resume"}
+            </a>
           </div>
         </div>
 
@@ -76,7 +91,7 @@ export const About = () => {
         <div className="mt-16 space-y-12">
           {/* Technical Skills */}
           <div>
-            <h3 className="text-xl font-semibold mb-4 text-foreground">Technical Skills</h3>
+            <h3 className="text-xl font-semibold mb-4 text-foreground">{language === "id" ? "Keahlian Teknis" : "Technical Skills"}</h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
               {skills.map((skill, index) => (
                 <div
@@ -92,7 +107,7 @@ export const About = () => {
 
           {/* Soft Skills */}
           <div>
-            <h3 className="text-xl font-semibold mb-4 text-foreground">Soft Skills</h3>
+            <h3 className="text-xl font-semibold mb-4 text-foreground">{language === "id" ? "Kemampuan Lain" : "Soft Skills"}</h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
               {softSkills.map((skill, index) => (
                 <div
@@ -100,7 +115,17 @@ export const About = () => {
                   className="flex flex-col items-center gap-2 p-4 rounded-lg bg-background border border-border hover:border-primary transition-all hover:scale-105"
                 >
                   <skill.icon className="h-8 w-8 text-primary" />
-                  <span className="text-sm font-medium text-center">{skill.name}</span>
+                  <span className="text-sm font-medium text-center">
+                    {language === "id"
+                      ? {
+                          "Problem Solving": "Pemecahan Masalah",
+                          "Team Collaboration": "Kolaborasi Tim",
+                          "Creative Thinking": "Berpikir Kreatif",
+                          "Time Management": "Manajemen Waktu",
+                          Communication: "Komunikasi",
+                        }[skill.name] || skill.name
+                      : skill.name}
+                  </span>
                 </div>
               ))}
             </div>
