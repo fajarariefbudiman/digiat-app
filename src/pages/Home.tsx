@@ -121,8 +121,8 @@ export default function Home() {
             asChild
             className="animate-fade-in"
           >
-            <a href="/sample">
-              {t("Lihat Portofolio", "View Portfolio")}
+            <a href="/products">
+              {t("Lihat Produk", "View Products")}
               <ArrowRight className="ml-2 h-5 w-5" />
             </a>
           </Button>
