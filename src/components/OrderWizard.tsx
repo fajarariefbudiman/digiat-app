@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLanguage } from "../contexts/LanguageContext";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
@@ -169,10 +169,20 @@ export const OrderWizard = () => {
       setIsSubmitting(false);
     }
   };
+  const [emailError, setEmailError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (formData.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      setEmailError(t("Format email tidak valid", "Invalid email format"));
+    } else {
+      setEmailError(null);
+    }
+  }, [formData.email, t]);
 
   const canProceedStep1 = formData.userType && formData.services.length > 0;
   const canProceedStep2 = formData.fullName && formData.email && formData.phone && formData.address && (formData.userType !== "student" || formData.university);
   const canSubmit = formData.taskDescription && formData.deadline && formData.agreedToContact;
+
   return (
     <div className="w-full max-w-4xl mx-auto">
       <Card className="p-6 md:p-8 shadow-card">
@@ -314,9 +324,14 @@ export const OrderWizard = () => {
                   id="email"
                   type="email"
                   value={formData.email}
-                  onChange={(e) => setFormData((prev) => ({ ...prev, email: e.target.value }))}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    setFormData((prev) => ({ ...prev, email: value }));
+                  }}
                   required
+                  className={emailError ? "border-red-500 focus:ring-red-500" : ""}
                 />
+                {emailError && <p className="text-sm text-red-500 mt-1">{emailError}</p>}
               </div>
 
               <div>
@@ -361,10 +376,13 @@ export const OrderWizard = () => {
                   <ArrowLeft className="mr-2 h-4 w-4" /> {t("Kembali", "Back")}
                 </Button>
                 <Button
-                  type="button"
-                  onClick={() => setStep(3)}
-                  disabled={!canProceedStep2}
                   variant="hero"
+                  disabled={!!emailError || !formData.email}
+                  onClick={() => {
+                    if (!emailError && formData.email) {
+                      setStep(3);
+                    }
+                  }}
                 >
                   {t("Lanjut", "Next")} <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>

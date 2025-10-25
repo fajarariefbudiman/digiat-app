@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../components/ui/dialog";
 import { Input } from "../components/ui/input";
 import { Textarea } from "../components/ui/textarea";
@@ -87,6 +87,15 @@ export const ProductWizard = ({ product, onClose }: ProductWizardProps) => {
       setIsSubmitting(false);
     }
   };
+  const [emailError, setEmailError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (formData.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      setEmailError(t("Format email tidak valid", "Invalid email format"));
+    } else {
+      setEmailError(null);
+    }
+  }, [formData.email, t]);
 
   return (
     <Dialog
@@ -145,13 +154,19 @@ export const ProductWizard = ({ product, onClose }: ProductWizardProps) => {
                 required
               />
 
-              <Label>{t("Email", "Email")}</Label>
+              <Label htmlFor="email">{t("Email", "Email")} *</Label>
               <Input
+                id="email"
                 type="email"
                 value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  setFormData((prev) => ({ ...prev, email: value }));
+                }}
                 required
+                className={emailError ? "border-red-500 focus:ring-red-500" : ""}
               />
+              {emailError && <p className="text-sm text-red-500 mt-1">{emailError}</p>}
 
               <Label>{t("Deskripsi Proyek (opsional)", "Project Description (optional)")}</Label>
               <Textarea
@@ -163,7 +178,12 @@ export const ProductWizard = ({ product, onClose }: ProductWizardProps) => {
               <div className="flex justify-end">
                 <Button
                   variant="hero"
-                  onClick={() => setStep(2)}
+                  disabled={!!emailError || !formData.email}
+                  onClick={() => {
+                    if (!emailError && formData.email) {
+                      setStep(3);
+                    }
+                  }}
                 >
                   {t("Lanjut", "Next")} <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
