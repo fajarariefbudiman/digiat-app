@@ -312,6 +312,7 @@ export const OrderWizard = () => {
                 <Label htmlFor="email">{t("Email", "Email")} *</Label>
                 <Input
                   id="email"
+                  type="email"
                   value={formData.email}
                   onChange={(e) => setFormData((prev) => ({ ...prev, email: e.target.value }))}
                   required
