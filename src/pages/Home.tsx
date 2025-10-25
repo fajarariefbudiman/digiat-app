@@ -188,7 +188,7 @@ export default function Home() {
             ))}
           </div>
 
-          <div className="text-center mt-12">
+          {/* <div className="text-center mt-12">
             <Button
               variant="outline"
               size="lg"
@@ -199,7 +199,7 @@ export default function Home() {
                 <ArrowRight className="ml-2 h-5 w-5" />
               </a>
             </Button>
-          </div>
+          </div> */}
         </div>
       </section>
 
