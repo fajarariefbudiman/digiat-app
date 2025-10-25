@@ -87,24 +87,24 @@ export default function Home() {
   ];
 
   const testimonials = [
-    {
-      name: "Budi Santoso",
-      title: "CEO, TechStartup Indonesia",
-      testimonial: "DiGiat sangat profesional dan memahami kebutuhan kami. Website yang dibuat sangat memuaskan!",
-      rating: 5,
-    },
-    {
-      name: "Sarah Williams",
-      title: "Product Manager, GlobalCorp",
-      testimonial: "Excellent service and outstanding results. The mobile app exceeded our expectations!",
-      rating: 5,
-    },
-    {
-      name: "Ahmad Yani",
-      title: "Mahasiswa Teknik Informatika",
-      testimonial: "Membantu saya menyelesaikan tugas akhir dengan hasil yang memuaskan. Terima kasih DiGiat!",
-      rating: 5,
-    },
+    // {
+    //   name: "Budi Santoso",
+    //   title: "CEO, TechStartup Indonesia",
+    //   testimonial: "DiGiat sangat profesional dan memahami kebutuhan kami. Website yang dibuat sangat memuaskan!",
+    //   rating: 5,
+    // },
+    // {
+    //   name: "Sarah Williams",
+    //   title: "Product Manager, GlobalCorp",
+    //   testimonial: "Excellent service and outstanding results. The mobile app exceeded our expectations!",
+    //   rating: 5,
+    // },
+    // {
+    //   name: "Ahmad Yani",
+    //   title: "Mahasiswa Teknik Informatika",
+    //   testimonial: "Membantu saya menyelesaikan tugas akhir dengan hasil yang memuaskan. Terima kasih DiGiat!",
+    //   rating: 5,
+    // },
   ];
 
   return (
