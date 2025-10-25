@@ -5,8 +5,8 @@ export const Footer = () => {
   const { t } = useLanguage();
 
   const socialLinks = [
-    { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
-    { icon: Github, href: 'https://github.com', label: 'GitHub' },
+    // { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
+    // { icon: Github, href: 'https://github.com', label: 'GitHub' },
     { icon: Instagram, href: 'https://instagram.com', label: 'Instagram' },
     { icon: MessageCircle, href: 'https://wa.me/6281234567890', label: 'WhatsApp' },
   ];
