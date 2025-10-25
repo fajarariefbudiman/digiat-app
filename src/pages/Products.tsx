@@ -28,38 +28,42 @@ export default function Products() {
       category: "website",
       title: t("Website Motoshop", "Motoshop Website"),
       description: t("Website e-commerce mini untuk jualan motor dengan sistem admin dan checkout.", "Mini e-commerce website for motorcycle sales with admin and checkout system."),
-      price: t("Mulai dari Rp 3.000.000", "Starting from Rp 3,000,000"),
-      tech: ["Laravel", "MySQL", "Tailwind", "Pusher"],
+      oldPrice: "Rp 3.500.000",
+      price: "Rp 1.475.000",
+      // tech: ["Laravel", "MySQL", "Tailwind", "Pusher"],
       image: "/img/motoshop.png",
-      liveDemo: "https://motoshop-demo.example.com",
+      liveDemo: "https://motoshop-five.vercel.app",
     },
     {
       id: "p2",
       category: "website",
       title: t("Vutsal Store", "Vutsal Store App"),
       description: t("Aplikasi mobile e-commerce untuk jualan sepatu futsal dengan integrasi notifikasi dan API.", "Mobile e-commerce app for futsal shoes with notifications and API integration."),
-      price: t("Mulai dari Rp 5.000.000", "Starting from Rp 5,000,000"),
-      tech: ["Laravel", "MySQL", "Tailwind", "Pusher"],
+      oldPrice: "Rp 3.300.000",
+      price: "Rp 1.399.000",
+      // tech: ["Laravel", "MySQL", "Tailwind", "Pusher"],
       image: "/img/vutsal.png",
-      liveDemo: "https://motoshop-demo.example.com",
+      liveDemo: "https://vutsal-store.vercel.app",
     },
-    {
-      id: "p3",
-      category: "website",
-      title: t("Luxe Stay", "Luxe Stay Booking System"),
-      description: t("Template sistem booking kamar hotel dengan role admin, pelanggan, dan laporan pendapatan.", "Hotel room booking system template with admin, customer, and revenue reports."),
-      price: t("Mulai dari Rp 7.000.000", "Starting from Rp 7,000,000"),
-      tech: ["Laravel", "MySQL", "Tailwind", "Pusher"],
-      image: "/img/luxe-stay.png",
-      liveDemo: "https://motoshop-demo.example.com",
-    },
+    // {
+    //   id: "p3",
+    //   category: "website",
+    //   title: t("Luxe Stay", "Luxe Stay Booking System"),
+    //   description: t("Template sistem booking kamar hotel dengan role admin, pelanggan, dan laporan pendapatan.", "Hotel room booking system template with admin, customer, and revenue reports."),
+    //   oldPrice: "Rp 7.500.000",
+    //   price: "Rp 7.000.000",
+    //   tech: ["Laravel", "MySQL", "Tailwind", "Pusher"],
+    //   image: "/img/luxe-stay.png",
+    //   liveDemo: "https://motoshop-demo.example.com",
+    // },
     {
       id: "p4",
       category: "system",
       title: t("RESTful API CRUD User", "RESTful API CRUD User"),
       description: t("Template API user lengkap dengan autentikasi JWT dan dokumentasi Swagger.", "Complete user API template with JWT authentication and Swagger documentation."),
-      price: t("Mulai dari Rp 2.500.000", "Starting from Rp 2,500,000"),
-      tech: ["Go", "PHP", "Python", "C++"],
+      oldPrice: "Rp 500.000",
+      price: "Rp 299.000",
+      // tech: ["Go", "PHP", "Python", "C++"],
       screenshots: ["/img/api.jpeg"],
     },
     {
@@ -67,19 +71,11 @@ export default function Products() {
       category: "website",
       title: t("Personal Web Dark Theme", "Personal Web Dark Theme"),
       description: t("Template website pribadi dengan tema gelap minimalis untuk portofolio modern.", "Dark-themed personal portfolio website template."),
-      price: t("Mulai dari Rp 2.000.000", "Starting from Rp 2,000,000"),
-      tech: ["Next.js", "Tailwind", "Framer Motion"],
+      oldPrice: "Rp 2.500.000",
+      price: "Rp 999.000",
+      // tech: ["Next.js", "Tailwind", "Framer Motion"],
       image: "/img/personal.png",
-      liveDemo: "https://personalweb-demo.example.com",
-    },
-    {
-      id: "p6",
-      category: "design",
-      title: t("Poster Tema Tahun Baru", "New Year Poster Template"),
-      description: t("Template poster bertema tahun baru yang siap disesuaikan dengan brand Anda.", "Editable New Year poster template for your brand."),
-      price: t("Mulai dari Rp 500.000", "Starting from Rp 500,000"),
-      tech: ["Figma", "Canva"],
-      screenshots: ["/images/products/newyear1.png", "/images/products/newyear2.png"],
+      liveDemo: "https://fajarariefbudiman-personal-web.vercel.app",
     },
   ];
 
@@ -99,9 +95,9 @@ export default function Products() {
             {categories.map((cat) => (
               <Button
                 key={cat.id}
-                variant={selectedCategory === cat.id ? "hero" : "outline"}
+                variant={selectedCategory === cat.id ? "default" : "outline"}
                 onClick={() => setSelectedCategory(cat.id)}
-                className="px-5 py-2 text-sm md:text-base"
+                className={`px-5 py-2 text-sm md:text-base ${selectedCategory === cat.id ? "bg-primary text-white hover:bg-primary/90" : ""}`}
               >
                 {cat.label}
               </Button>
@@ -120,42 +116,41 @@ export default function Products() {
                 className="p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] bg-card"
               >
                 <div className="mb-4">
-                  {/* Image or Carousel */}
-                  {product.category === "website" ? (
+                  {/* Image / Carousel */}
+                  {product.image ? (
                     <img
                       src={product.image}
                       alt={product.title}
                       className="w-full h-48 object-cover rounded-xl mb-4 shadow-sm"
                     />
                   ) : (
-                    <div className="rounded-xl overflow-hidden shadow-sm mb-4">
-                      <Carousel
-                        showThumbs={false}
-                        showStatus={false}
-                        infiniteLoop
-                        autoPlay
-                        interval={3500}
-                        emulateTouch
-                      >
-                        {product.screenshots?.map((src, i) => (
-                          <div key={i}>
-                            <img
-                              src={src}
-                              alt={`${product.title} screenshot ${i + 1}`}
-                              className="h-48 w-full object-cover"
-                            />
-                          </div>
-                        ))}
-                      </Carousel>
-                    </div>
+                    <Carousel
+                      showThumbs={false}
+                      showStatus={false}
+                      infiniteLoop
+                      autoPlay
+                      interval={3500}
+                      emulateTouch
+                      className="rounded-xl overflow-hidden shadow-sm mb-4"
+                    >
+                      {product.screenshots?.map((src, i) => (
+                        <div key={i}>
+                          <img
+                            src={src}
+                            alt={`${product.title} screenshot ${i + 1}`}
+                            className="h-48 w-full object-cover"
+                          />
+                        </div>
+                      ))}
+                    </Carousel>
                   )}
 
-                  {/* Title & Description */}
+                  {/* Info */}
                   <h3 className="text-2xl font-semibold mb-2 text-foreground">{product.title}</h3>
                   <p className="text-muted-foreground mb-4 text-sm leading-relaxed">{product.description}</p>
 
                   {/* Tech Badges */}
-                  <div className="flex flex-wrap gap-2 mb-4">
+                  {/* <div className="flex flex-wrap gap-2 mb-4">
                     {product.tech.map((tech, i) => (
                       <Badge
                         key={i}
@@ -165,14 +160,17 @@ export default function Products() {
                         {tech}
                       </Badge>
                     ))}
-                  </div>
+                  </div> */}
 
                   {/* Price */}
-                  <div className="text-2xl font-bold text-primary mb-5">{product.price}</div>
+                  <div className="mb-5">
+                    {product.oldPrice && <div className="text-muted-foreground line-through text-sm mb-1">{product.oldPrice}</div>}
+                    <div className="text-2xl font-bold text-primary">{product.price}</div>
+                  </div>
 
                   {/* Buttons */}
                   <div className="flex gap-3">
-                    {product.category === "website" ? (
+                    {product.liveDemo ? (
                       <Button
                         asChild
                         variant="outline"
@@ -181,6 +179,7 @@ export default function Products() {
                         <a
                           href={product.liveDemo}
                           target="_blank"
+                          rel="noopener noreferrer"
                         >
                           Live Demo
                         </a>
@@ -189,14 +188,14 @@ export default function Products() {
                       <Button
                         variant="outline"
                         disabled
-                        className="w-1/2 opacity-60 cursor-not-allowed text-sm"
+                        className="w-1/2 opacity-60 text-sm"
                       >
                         Preview Only
                       </Button>
                     )}
                     <Button
                       className="w-1/2 text-sm font-medium"
-                      variant="hero"
+                      variant="outline"
                       onClick={() => setSelectedProduct(product)}
                     >
                       {t("Pesan Sekarang", "Order Now")}

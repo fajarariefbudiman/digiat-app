@@ -15,11 +15,11 @@ interface FormData {
   addon: string;
   services: string[];
   fullName: string;
+  email: string;
   phone: string;
   address: string;
   university: string;
   taskDescription: string;
-  file: File | null;
   notes: string;
   deadline: string;
   agreedToContact: boolean;
@@ -33,11 +33,11 @@ export const OrderWizard = () => {
     services: [],
     addon: "",
     fullName: "",
+    email: "",
     phone: "",
     address: "",
     university: "",
     taskDescription: "",
-    file: null,
     notes: "",
     deadline: "",
     agreedToContact: false,
@@ -54,7 +54,6 @@ export const OrderWizard = () => {
       { id: "ml-project", label: t("Proyek Machine Learning (Dasar)", "Machine Learning Project (Basic)"), price: "Rp 199.000 – Rp 699.000" },
       { id: "data-analysis", label: t("Analisis Data / AI Dasar", "Data Analysis / Basic AI"), price: "Rp 99.000 – Rp 499.000" },
     ],
-
     professional: [
       { id: "company-web", label: t("Website Perusahaan / Portofolio", "Company Website / Portfolio"), price: "Rp 3.000.000 – Rp 6.000.000" },
       { id: "mobile-app", label: t("Aplikasi Mobile (Bisnis)", "Mobile App (Business)"), price: "Rp 3.000.000 – Rp 10.000.000" },
@@ -71,34 +70,27 @@ export const OrderWizard = () => {
         id: "hosting",
         label: t("Hosting (Online)", "Hosting (Online)"),
         price: "Tambah Rp 99.000 – Rp 300.000",
-        note: t(
-          "Untuk demo online (maks. 6 bulan), cocok untuk tugas kuliah berbasis web. Harga menyesuaikan kebutuhan aplikasi seperti ukuran database dan traffic pengguna.",
-          "For online demo (up to 6 months), suitable for web-based university projects. Price depends on app needs such as database size and user traffic."
-        ),
+        note: t("Untuk demo online (maks. 6 bulan), cocok untuk tugas kuliah berbasis web.", "For online demo (up to 6 months), suitable for web-based university projects."),
       },
       {
         id: "local",
         label: t("Local / Offline", "Local / Offline"),
         price: "Gratis",
-        note: t("Dijalankan di localhost tanpa biaya tambahan. Tidak memerlukan koneksi internet atau domain.", "Runs locally (XAMPP, Laragon, etc.) with no extra cost. No internet or domain required."),
+        note: t("Dijalankan di localhost tanpa biaya tambahan.", "Runs locally (XAMPP, Laragon, etc.) with no extra cost."),
       },
     ],
-
     professional: [
       {
         id: "hosting",
         label: t("Hosting", "Hosting"),
         price: "Tambah Rp 300.000 – Rp 600.000 / tahun",
-        note: t(
-          "Server online dengan durasi tahunan untuk publikasi website atau sistem. Harga menyesuaikan kebutuhan aplikasi seperti resource server, database, dan keamanan.",
-          "Annual online server for website or system publication. Price depends on app requirements such as server resources, database, and security."
-        ),
+        note: t("Server online tahunan untuk publikasi website atau sistem.", "Annual online server for website or system publication."),
       },
       {
         id: "domain",
         label: t("Domain (.com / .id)", "Domain (.com / .id)"),
         price: "Tambah Rp 150.000 – Rp 300.000 / tahun",
-        note: t("Nama domain kustom tahunan seperti perusahaananda.com. Harga dapat bervariasi tergantung ekstensi dan registrar.", "Annual custom domain like yourcompany.com. Price may vary depending on extension and registrar."),
+        note: t("Nama domain kustom tahunan seperti perusahaananda.com.", "Annual custom domain like yourcompany.com."),
       },
     ],
   };
@@ -117,39 +109,29 @@ export const OrderWizard = () => {
     }));
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      if (file.type !== "application/pdf") {
-        toast.error(t("Hanya file PDF yang diperbolehkan", "Only PDF files are allowed"));
-        return;
-      }
-      if (file.size > 10 * 1024 * 1024) {
-        toast.error(t("Ukuran file maksimal 10MB", "Maximum file size is 10MB"));
-        return;
-      }
-      setFormData((prev) => ({ ...prev, file }));
-    }
-  };
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    // Jika sudah sedang submit, cegah aksi lagi
+    if (isSubmitting) return;
+
+    setIsSubmitting(true); // Kunci tombol submit
+
     const formDataToSend = new FormData();
-    formDataToSend.append("access_key", "");
+    formDataToSend.append("access_key", "e00dccbb-6fcc-4c90-839a-5f843b33f7df");
     formDataToSend.append("userType", formData.userType || "");
     formDataToSend.append("services", formData.services.join(", "));
     formDataToSend.append("addon", formData.addon);
     formDataToSend.append("fullName", formData.fullName);
+    formDataToSend.append("email", formData.email);
     formDataToSend.append("phone", formData.phone);
     formDataToSend.append("address", formData.address);
     if (formData.userType === "student") {
       formDataToSend.append("university", formData.university);
     }
     formDataToSend.append("taskDescription", formData.taskDescription);
-    if (formData.file) {
-      formDataToSend.append("file", formData.file);
-    }
     formDataToSend.append("notes", formData.notes);
     formDataToSend.append("deadline", formData.deadline);
 
@@ -161,17 +143,18 @@ export const OrderWizard = () => {
 
       if (response.ok) {
         toast.success(t("Terima kasih — pesanan Anda sudah diterima. Tim DiGiat akan segera menghubungi Anda.", "Thank you — your order has been received. The DiGiat team will contact you shortly."));
+
         // Reset form
         setFormData({
           userType: null,
           services: [],
           addon: "",
           fullName: "",
+          email: "",
           phone: "",
           address: "",
           university: "",
           taskDescription: "",
-          file: null,
           notes: "",
           deadline: "",
           agreedToContact: false,
@@ -182,13 +165,14 @@ export const OrderWizard = () => {
       }
     } catch (error) {
       toast.error(t("Terjadi kesalahan. Silakan coba lagi.", "An error occurred. Please try again."));
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   const canProceedStep1 = formData.userType && formData.services.length > 0;
-  const canProceedStep2 = formData.fullName && formData.phone && formData.address && (formData.userType !== "student" || formData.university);
-  const canSubmit = formData.taskDescription && formData.deadline && formData.agreedToContact && (formData.userType !== "student" || formData.file);
-
+  const canProceedStep2 = formData.fullName && formData.email && formData.phone && formData.address && (formData.userType !== "student" || formData.university);
+  const canSubmit = formData.taskDescription && formData.deadline && formData.agreedToContact;
   return (
     <div className="w-full max-w-4xl mx-auto">
       <Card className="p-6 md:p-8 shadow-card">
@@ -324,6 +308,15 @@ export const OrderWizard = () => {
                   required
                 />
               </div>
+              <div>
+                <Label htmlFor="email">{t("Email", "Email")} *</Label>
+                <Input
+                  id="email"
+                  value={formData.email}
+                  onChange={(e) => setFormData((prev) => ({ ...prev, email: e.target.value }))}
+                  required
+                />
+              </div>
 
               <div>
                 <Label htmlFor="phone">{t("Nomor Telepon", "Phone Number")} *</Label>
@@ -392,24 +385,6 @@ export const OrderWizard = () => {
                 />
               </div>
 
-              {formData.userType === "student" && (
-                <div>
-                  <Label htmlFor="file">{t("Upload File (PDF, Max 10MB)", "Upload File (PDF, Max 10MB)")} *</Label>
-                  <Input
-                    id="file"
-                    type="file"
-                    accept=".pdf"
-                    onChange={handleFileChange}
-                    required
-                  />
-                  {formData.file && (
-                    <p className="text-sm text-muted-foreground mt-2">
-                      {t("File dipilih:", "File selected:")} {formData.file.name}
-                    </p>
-                  )}
-                </div>
-              )}
-
               <div>
                 <Label htmlFor="notes">{t("Catatan (Opsional)", "Notes (Optional)")}</Label>
                 <Textarea
@@ -453,15 +428,17 @@ export const OrderWizard = () => {
                   type="button"
                   variant="outline"
                   onClick={() => setStep(2)}
+                  disabled={isSubmitting}
                 >
                   <ArrowLeft className="mr-2 h-4 w-4" /> {t("Kembali", "Back")}
                 </Button>
+
                 <Button
                   type="submit"
-                  disabled={!canSubmit}
+                  disabled={!canSubmit || isSubmitting}
                   variant="hero"
                 >
-                  {t("Kirim Pesanan", "Submit Order")}
+                  {isSubmitting ? t("Mengirim...", "Submitting...") : t("Kirim Pesanan", "Submit Order")}
                 </Button>
               </div>
             </div>

@@ -49,9 +49,10 @@ export default function Contact() {
   };
 
   const socialLinks = [
-    { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn", color: "hover:text-[#0077B5]" },
-    { icon: Github, href: "https://github.com", label: "GitHub", color: "hover:text-[#333]" },
-    { icon: Instagram, href: "https://instagram.com", label: "Instagram", color: "hover:text-[#E4405F]" },
+    // { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn", color: "hover:text-[#0077B5]" },
+    // { icon: Github, href: "https://github.com", label: "GitHub", color: "hover:text-[#333]" },
+    { icon: Mail, href: "mailto:digiat.info@gmail.com", label: "Instagram", color: "hover:text-[#E4405F]" },
+    { icon: Instagram, href: "https://www.instagram.com/digiatid", label: "Instagram", color: "hover:text-[#E4405F]" },
     { icon: MessageCircle, href: "https://wa.me/6283873630760", label: "WhatsApp", color: "hover:text-[#25D366]" },
   ];
 
@@ -136,7 +137,7 @@ export default function Contact() {
               <div>
                 <h2 className="text-2xl font-bold mb-6">{t("Informasi Kontak", "Contact Information")}</h2>
                 <div className="space-y-4">
-                  <div className="flex items-start space-x-4">
+                  {/* <div className="flex items-start space-x-4">
                     <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
                       <MapPin className="h-6 w-6 text-primary" />
                     </div>
@@ -144,7 +145,7 @@ export default function Contact() {
                       <h3 className="font-semibold mb-1">{t("Alamat", "Address")}</h3>
                       <p className="text-muted-foreground">{t("Jl. Teknologi No. 123, Jakarta 12345, Indonesia", "Jl. Teknologi No. 123, Jakarta 12345, Indonesia")}</p>
                     </div>
-                  </div>
+                  </div> */}
 
                   <div className="flex items-start space-x-4">
                     <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
@@ -162,7 +163,7 @@ export default function Contact() {
                     </div>
                     <div>
                       <h3 className="font-semibold mb-1">Email</h3>
-                      <p className="text-muted-foreground">info@digiat.com</p>
+                      <p className="text-muted-foreground">digiat.info@gmail.com</p>
                     </div>
                   </div>
                 </div>

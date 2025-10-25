@@ -6,6 +6,7 @@ import { Button } from "../components/ui/button";
 import { Label } from "../components/ui/label";
 import { Check, ArrowLeft, ArrowRight } from "lucide-react";
 import { useLanguage } from "../contexts/LanguageContext";
+import { toast } from "sonner";
 
 interface ProductWizardProps {
   product: any;
@@ -15,31 +16,76 @@ interface ProductWizardProps {
 export const ProductWizard = ({ product, onClose }: ProductWizardProps) => {
   const { t } = useLanguage();
   const [step, setStep] = useState(1);
+
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
     email: "",
     description: "",
-    language: "",
-    database: "",
-    frontend: "",
-    backend: "",
-    framework: "",
-    hosting: false,
-    domain: false,
+    deliveryType: "zip",
+    customDesign: false,
   });
 
-  const languages = ["PHP", "Python", "Go", "C++", "JavaScript", "TypeScript"];
-  const databases = ["MySQL", "PostgreSQL", "MongoDB", "SQLite", "Firebase"];
-  const frontends = ["React", "Next.js", "Vue", "Angular", "Tailwind"];
-  const backends = ["Laravel", "Express.js", "Django", "FastAPI", "Spring Boot"];
-  const frameworks = ["Flutter", "React Native", "Bootstrap", "Framer Motion"];
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value, type, checked } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Order data:", { productId: product.id, ...formData });
-    alert("Pesanan berhasil dikirim!");
-    onClose();
+
+    if (isSubmitting) return;
+
+    setIsSubmitting(true);
+
+    const deliveryText = formData.deliveryType === "zip" ? "Template ZIP" : "Hosting + Domain";
+    const designText = formData.customDesign ? "Dengan Custom Desain" : "Tanpa Custom Desain (pakai template)";
+
+    const formDataToSend = new FormData();
+    formDataToSend.append("access_key", "e00dccbb-6fcc-4c90-839a-5f843b33f7df");
+    formDataToSend.append("productId", product?.id || "");
+    formDataToSend.append("productName", product?.title || "");
+    formDataToSend.append("name", formData.name);
+    formDataToSend.append("phone", formData.phone);
+    formDataToSend.append("email", formData.email);
+    formDataToSend.append("description", formData.description);
+    formDataToSend.append("deliveryType", deliveryText);
+    formDataToSend.append("customDesign", designText);
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formDataToSend,
+      });
+
+      if (response.ok) {
+        toast.success(t("Pesanan berhasil dikirim!", "Order submitted successfully!"), {
+          description: t("Kami akan menghubungi Anda untuk konfirmasi detail dan pembayaran.", "We’ll contact you for confirmation and payment details."),
+        });
+
+        setFormData({
+          name: "",
+          phone: "",
+          email: "",
+          description: "",
+          deliveryType: "zip",
+          customDesign: false,
+        });
+        setStep(1);
+        onClose();
+      } else {
+        toast.error(t("Terjadi kesalahan. Silakan coba lagi.", "An error occurred. Please try again."));
+      }
+    } catch (error) {
+      toast.error(t("Terjadi kesalahan. Silakan coba lagi.", "An error occurred. Please try again."));
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -81,17 +127,17 @@ export const ProductWizard = ({ product, onClose }: ProductWizardProps) => {
           onSubmit={handleSubmit}
           className="space-y-6 px-6 pb-6"
         >
-          {/* STEP 1 - Informasi Kontak */}
+          {/* STEP 1 - Kontak */}
           {step === 1 && (
             <div className="space-y-4">
-              <Label className="block">{t("Nama Lengkap", "Full Name")}</Label>
+              <Label>{t("Nama Lengkap", "Full Name")}</Label>
               <Input
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 required
               />
 
-              <Label className="block">{t("Nomor Telepon", "Phone Number")}</Label>
+              <Label>{t("Nomor Telepon", "Phone Number")}</Label>
               <Input
                 type="tel"
                 value={formData.phone}
@@ -99,12 +145,19 @@ export const ProductWizard = ({ product, onClose }: ProductWizardProps) => {
                 required
               />
 
-              <Label className="block">{t("Email", "Email")}</Label>
+              <Label>{t("Email", "Email")}</Label>
               <Input
                 type="email"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 required
+              />
+
+              <Label>{t("Deskripsi Proyek (opsional)", "Project Description (optional)")}</Label>
+              <Textarea
+                placeholder={t("Ceritakan singkat kebutuhan Anda...", "Describe your needs briefly...")}
+                value={formData.description}
+                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               />
 
               <div className="flex justify-end">
@@ -118,114 +171,34 @@ export const ProductWizard = ({ product, onClose }: ProductWizardProps) => {
             </div>
           )}
 
-          {/* STEP 2 - Detail Pesanan */}
+          {/* STEP 2 - Pilih metode deliver */}
           {step === 2 && (
-            <div className="space-y-4">
-              <Label className="block">{t("Deskripsi Pesanan", "Order Description")}</Label>
-              <Textarea
-                value={formData.description}
-                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                rows={4}
-                required
-              />
+            <div className="space-y-6">
+              <Label className="text-base mb-2 block">{t("Pilih Jenis Produk", "Choose Delivery Type")}</Label>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <Label>{t("Bahasa Pemrograman", "Programming Language")}</Label>
-                  <select
-                    className="w-full border rounded-md p-2"
-                    value={formData.language}
-                    onChange={(e) => setFormData({ ...formData, language: e.target.value })}
-                    required
+                {[
+                  {
+                    id: "zip",
+                    title: t("Template ZIP", "Template ZIP"),
+                    desc: t("File siap pakai yang bisa Anda upload sendiri.", "Ready-to-use file for self-hosting."),
+                  },
+                  {
+                    id: "hosting",
+                    title: t("Hosting + Domain", "Hosting + Domain"),
+                    desc: t("Kami bantu deploy dan sediakan domain Anda.", "We handle hosting and domain setup."),
+                  },
+                ].map((opt) => (
+                  <button
+                    key={opt.id}
+                    type="button"
+                    onClick={() => setFormData({ ...formData, deliveryType: opt.id })}
+                    className={`p-5 rounded-lg border-2 text-left transition ${formData.deliveryType === opt.id ? "border-primary bg-primary/5" : "border-border hover:border-primary/50"}`}
                   >
-                    <option value="">-- Pilih --</option>
-                    {languages.map((lang) => (
-                      <option
-                        key={lang}
-                        value={lang}
-                      >
-                        {lang}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div>
-                  <Label>{t("Database", "Database")}</Label>
-                  <select
-                    className="w-full border rounded-md p-2"
-                    value={formData.database}
-                    onChange={(e) => setFormData({ ...formData, database: e.target.value })}
-                    required
-                  >
-                    <option value="">-- Pilih --</option>
-                    {databases.map((db) => (
-                      <option
-                        key={db}
-                        value={db}
-                      >
-                        {db}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div>
-                  <Label>{t("Frontend", "Frontend")}</Label>
-                  <select
-                    className="w-full border rounded-md p-2"
-                    value={formData.frontend}
-                    onChange={(e) => setFormData({ ...formData, frontend: e.target.value })}
-                  >
-                    <option value="">-- Pilih (Opsional) --</option>
-                    {frontends.map((fe) => (
-                      <option
-                        key={fe}
-                        value={fe}
-                      >
-                        {fe}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div>
-                  <Label>{t("Backend", "Backend")}</Label>
-                  <select
-                    className="w-full border rounded-md p-2"
-                    value={formData.backend}
-                    onChange={(e) => setFormData({ ...formData, backend: e.target.value })}
-                  >
-                    <option value="">-- Pilih (Opsional) --</option>
-                    {backends.map((be) => (
-                      <option
-                        key={be}
-                        value={be}
-                      >
-                        {be}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div>
-                  <Label>{t("Framework Tambahan", "Additional Framework")}</Label>
-                  <select
-                    className="w-full border rounded-md p-2"
-                    value={formData.framework}
-                    onChange={(e) => setFormData({ ...formData, framework: e.target.value })}
-                  >
-                    <option value="">-- Pilih (Opsional) --</option>
-                    {frameworks.map((fw) => (
-                      <option
-                        key={fw}
-                        value={fw}
-                      >
-                        {fw}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+                    <p className="font-semibold">{opt.title}</p>
+                    <p className="text-sm text-muted-foreground mt-1">{opt.desc}</p>
+                  </button>
+                ))}
               </div>
 
               <div className="flex justify-between">
@@ -245,41 +218,46 @@ export const ProductWizard = ({ product, onClose }: ProductWizardProps) => {
             </div>
           )}
 
-          {/* STEP 3 - Hosting & Domain */}
+          {/* STEP 3 - Pilih custom desain */}
           {step === 3 && (
             <div className="space-y-6">
-              <div className="flex items-center space-x-3">
-                <input
-                  type="checkbox"
-                  id="hosting"
-                  checked={formData.hosting}
-                  onChange={(e) => setFormData({ ...formData, hosting: e.target.checked })}
-                />
-                <Label htmlFor="hosting">{t("Butuh hosting dari kami?", "Need hosting from us?")}</Label>
-              </div>
+              <Label className="text-base mb-2 block">{t("Apakah ingin Custom Desain?", "Do you want a Custom Design?")}</Label>
 
-              <div className="flex items-center space-x-3">
-                <input
-                  type="checkbox"
-                  id="domain"
-                  checked={formData.domain}
-                  onChange={(e) => setFormData({ ...formData, domain: e.target.checked })}
-                />
-                <Label htmlFor="domain">{t("Butuh domain (.com / .id)?", "Need a domain (.com / .id)?")}</Label>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <button
+                  type="button"
+                  onClick={() => setFormData({ ...formData, customDesign: true })}
+                  className={`p-5 rounded-lg border-2 text-left transition ${formData.customDesign ? "border-primary bg-primary/5" : "border-border hover:border-primary/50"}`}
+                >
+                  <p className="font-semibold">{t("Ya, saya ingin Custom Desain", "Yes, I want Custom Design")}</p>
+                  <p className="text-sm text-muted-foreground mt-1">{t("Desain dan fitur dibuat sesuai kebutuhan Anda.", "Design and features tailored to your needs.")}</p>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setFormData({ ...formData, customDesign: false })}
+                  className={`p-5 rounded-lg border-2 text-left transition ${!formData.customDesign ? "border-primary bg-primary/5" : "border-border hover:border-primary/50"}`}
+                >
+                  <p className="font-semibold">{t("Tidak, pakai template saja", "No, use existing template")}</p>
+                  <p className="text-sm text-muted-foreground mt-1">{t("Langsung gunakan template tanpa perubahan desain.", "Use template as-is without changes.")}</p>
+                </button>
               </div>
 
               <div className="flex justify-between">
                 <Button
                   variant="outline"
                   onClick={() => setStep(2)}
+                  disabled={isSubmitting}
                 >
                   <ArrowLeft className="mr-2 h-4 w-4" /> {t("Kembali", "Back")}
                 </Button>
+
                 <Button
                   type="submit"
                   variant="hero"
+                  disabled={isSubmitting}
                 >
-                  {t("Kirim Pesanan", "Submit Order")}
+                  {isSubmitting ? t("Mengirim...", "Submitting...") : t("Kirim Pesanan", "Submit Order")}
                 </Button>
               </div>
             </div>
