@@ -115,7 +115,7 @@ export default function Home() {
         <div className="relative z-10 text-center text-white px-4 max-w-4xl">
           <h1 className="text-4xl md:text-6xl font-bold mb-6 animate-fade-in">{t("Halo, Kami DiGiat", "Hello, We're DiGiat")}</h1>
           <p className="text-xl md:text-2xl mb-8 animate-fade-in opacity-90">{t("Penyedia layanan pembuatan website, mobile app, dan sistem.", "Provider of web, mobile app, and system development services.")}</p>
-          <Button
+          {/* <Button
             variant="hero"
             size="lg"
             asChild
@@ -125,7 +125,7 @@ export default function Home() {
               {t("Lihat Produk", "View Products")}
               <ArrowRight className="ml-2 h-5 w-5" />
             </a>
-          </Button>
+          </Button> */}
         </div>
       </section>
 
