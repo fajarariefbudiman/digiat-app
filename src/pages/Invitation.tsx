@@ -432,35 +432,47 @@ export default function Invitation() {
       {isOpened && (
         <div className="w-full min-h-screen bg-gray-100">
           <div className="w-full min-h-screen flex justify-center">
-            <div
-              className="w-full max-w-[430px] bg-center bg-no-repeat"
-              style={{
-                backgroundImage: `url(${cover})`,
-                backgroundSize: "430px 100vh",
-                backgroundAttachment: "fixed",
-              }}
-            >
-              {/* Page 1 - Cover */}
+            <div className="relative w-full max-w-[430px] min-h-screen mx-auto ">
+              {/* Background FIXED (works on iOS) */}
+              <img
+                src={cover}
+                alt="Cover Background"
+                className="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] h-full object-cover z-0"
+              />
+
+              {/* PAGE 1 - COVER */}
               <section
                 ref={coverRef}
-                className="w-full h-screen flex items-center justify-center overflow-hidden relative"
+                className="relative z-10 w-full h-screen flex items-center justify-center"
               >
-                <div className="relative z-10 px-5 text-center">
-                  <p className={`text-base font-serif tracking-widest text-gray-800 font-light uppercase drop-shadow-md ${coverVisible ? "animate-slideDown" : "scroll-animate"}`}>UNDANGAN ACARA WALIMAH</p>
+                <div className="px-5 text-center">
                   <p
-                    className={`text-base font-serif text-gray-800 tracking-wide drop-shadow-md mt-2 ${coverVisible ? "animate-slideDown" : "scroll-animate"}`}
+                    className={`text-base font-serif tracking-widest text-gray-800 font-light uppercase drop-shadow-md
+        ${coverVisible ? "animate-slideDown" : "scroll-animate"}`}
+                  >
+                    UNDANGAN ACARA WALIMAH
+                  </p>
+
+                  <p
+                    className={`text-base font-serif text-gray-800 tracking-wide drop-shadow-md mt-2
+        ${coverVisible ? "animate-slideDown" : "scroll-animate"}`}
                     style={{ animationDelay: "0.2s" }}
                   >
                     "NGUNDUH MANTU"
                   </p>
+
                   <div
                     className={`mt-32 ${coverVisible ? "animate-scaleUp" : "scroll-animate"}`}
                     style={{ animationDelay: "0.4s" }}
                   >
                     <h2 className="text-2xl font-fugi text-gray-700 drop-shadow-lg">PUTRA PERTAMA DARI PASANGAN</h2>
+
                     <h2 className="text-2xl font-fugi text-gray-700 italic drop-shadow-lg mt-6">BAPAK HAMBALI, S.Pd.</h2>
+
                     <h2 className="text-2xl font-fugi mt-5 text-gray-700 italic drop-shadow-lg">&</h2>
+
                     <h2 className="text-2xl font-fugi mt-5 text-gray-700 italic drop-shadow-lg">IBU NUR ASIYAH, S.Pd.</h2>
+
                     <p className="text-xl md:text-2xl font-serif text-gray-800 mt-8 mb-1 font-medium">22 . 12 . 2025</p>
                   </div>
                 </div>
@@ -469,24 +481,27 @@ export default function Invitation() {
               {/* Page 2 - Ayat & Greeting */}
               <section
                 ref={ayatRef}
-                className="w-full bg-gray-800 bg-opacity-90 px-8 py-12 flex flex-col items-center"
+                className="relative w-full px-8 py-12 flex flex-col items-center"
               >
-                <div className="flex items-center justify-center text-3xl font-amoresa text-white mb-10 tracking-[0.25em]">
-                  <span className={`${ayatVisible ? "animate-slideLeft" : "scroll-animate"}`}>R</span>
-                  <span
-                    className={`mx-4 ${ayatVisible ? "animate-fadeIn" : "scroll-animate"}`}
-                    style={{ animationDelay: "0.3s" }}
-                  >
-                    |
-                  </span>
-                  <span className={`${ayatVisible ? "animate-slideRight" : "scroll-animate"}`}>N</span>
-                </div>
+                <div className="absolute inset-0 bg-gray-800 opacity-90 z-0"></div>
+                <div className="relative z-10 flex flex-col items-center">
+                  <div className="flex items-center justify-center text-3xl font-amoresa text-white mb-10 tracking-[0.25em]">
+                    <span className={`${ayatVisible ? "animate-slideLeft" : "scroll-animate"}`}>R</span>
+                    <span
+                      className={`mx-4 ${ayatVisible ? "animate-fadeIn" : "scroll-animate"}`}
+                      style={{ animationDelay: "0.3s" }}
+                    >
+                      |
+                    </span>
+                    <span className={`${ayatVisible ? "animate-slideRight" : "scroll-animate"}`}>N</span>
+                  </div>
 
-                <div className={`text-white text-center max-w-lg ${ayatVisible ? "animate-fadeIn-delay" : "scroll-animate"}`}>
-                  <p className="text-xl font-serif leading-relaxed mb-4">
-                    "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang."
-                  </p>
-                  <p className="text-lg font-serif mt-3">Q.S Ar-Rum : 21</p>
+                  <div className={`text-white text-center max-w-lg ${ayatVisible ? "animate-fadeIn-delay" : "scroll-animate"}`}>
+                    <p className="text-xl font-serif leading-relaxed mb-4">
+                      "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang."
+                    </p>
+                    <p className="text-lg font-serif mt-3">Q.S Ar-Rum : 21</p>
+                  </div>
                 </div>
               </section>
 
