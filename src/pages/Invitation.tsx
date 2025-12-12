@@ -471,7 +471,7 @@ export default function Invitation() {
                 ref={ayatRef}
                 className="w-full bg-gray-800 bg-opacity-90 px-8 py-12 flex flex-col items-center"
               >
-                <div className="flex items-center justify-center text-6xl font-fugi text-white mb-10 tracking-[0.25em]">
+                <div className="flex items-center justify-center text-6xl font-amoresa text-white mb-10 tracking-[0.25em]">
                   <span className={`${ayatVisible ? "animate-slideLeft" : "scroll-animate"}`}>R</span>
                   <span
                     className={`mx-4 ${ayatVisible ? "animate-fadeIn" : "scroll-animate"}`}
