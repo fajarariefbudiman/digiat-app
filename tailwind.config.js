@@ -60,6 +60,10 @@ export default {
       },
       fontFamily: {
         sans: ["Montserrat", "ui-sans-serif", "system-ui", "sans-serif"],
+        amoresa: ["Amoresa", "sans-serif"],
+        fugi: ["Fugi", "sans-serif"],
+        aboreto: ["Aboreto", "sans-serif"],
+        alexbrush: ["Alex Brush", "sans-serif"],
       },
       borderRadius: {
         lg: "var(--radius)",
