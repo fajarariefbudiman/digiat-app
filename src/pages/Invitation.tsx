@@ -16,19 +16,63 @@ import { toast } from "sonner";
 const URL = "https://script.google.com/macros/s/AKfycbxkcX6fof7xOlHWZEnPhg9epXOSe8VYnEoxf_Q1LJ6w78YWS_xzecsBjGQxXMSLEinQ/exec";
 const UrlUcapan = "https://script.google.com/macros/s/AKfycbw4A470l6s_WodY1qlYkfl9lkQclFR_RdQq1jYZrXxIDfzmqyp1MSxs915nSvCPRDsWuQ/exec";
 
+const useIntersectionObserver = (isOpened, options = {}) => {
+  const ref = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    if (!isOpened) return; // ⛔ sebelum undangan dibuka, jangan animasi
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      {
+        threshold: 0.1,
+        ...options,
+      }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => {
+      if (ref.current) {
+        observer.unobserve(ref.current);
+      }
+    };
+  }, [isOpened]); // 🔥 depend on isOpened
+
+  return [ref, isVisible];
+};
+
 export default function Invitation() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isOpened, setIsOpened] = useState(false);
+
+  const [coverRef, coverVisible] = useIntersectionObserver(isOpened);
+  const [ayatRef, ayatVisible] = useIntersectionObserver(isOpened);
+  const [greetingRef, greetingVisible] = useIntersectionObserver(isOpened);
+  const [page3Ref, page3Visible] = useIntersectionObserver(isOpened);
+  const [page4Ref, page4Visible] = useIntersectionObserver(isOpened);
+  const [page5Ref, page5Visible] = useIntersectionObserver(isOpened);
+  const [page6Ref, page6Visible] = useIntersectionObserver(isOpened);
+  const [page7Ref, page7Visible] = useIntersectionObserver(isOpened);
+  const [page8Ref, page8Visible] = useIntersectionObserver(isOpened);
+  const [page9Ref, page9Visible] = useIntersectionObserver(isOpened);
+  const [footer, footerVisible] = useIntersectionObserver(isOpened);
+
   const [searchParams] = useSearchParams();
   const guestName = searchParams.get("to") || "Tamu Undangan";
   const audioRef = useRef<HTMLAudioElement>(null);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
-  const [wish, setWish] = useState({
-    nama: guestName || "",
-    pesan: "",
-  });
+  const [wishForm, setWishForm] = useState({ nama: "", pesan: "" }); // untuk form
+  const [wishes, setWishes] = useState([]);
   const [nama, setNama] = useState("");
   const [pesan, setPesan] = useState("");
   const [ucapan, setUcapan] = useState([]);
@@ -39,7 +83,7 @@ export default function Invitation() {
       const response = await fetch(`${UrlUcapan}?page=${pageNum}`);
       const result = await response.json();
 
-      setWish(result.data || []);
+      setWishes(result.data || []);
       setTotal(result.total || 0);
       setTotalPages(result.totalPages || 0);
       setPage(result.page || 1);
@@ -102,12 +146,12 @@ export default function Invitation() {
       headers: {
         "Content-Type": "text/plain;charset=utf-8",
       },
-      body: JSON.stringify(wish),
+      body: JSON.stringify(wishForm),
     });
-    console.log("", wish);
+    console.log("", wishForm);
 
     setLoading(false);
-    toast("Konfirmasi kehadiran berhasil dikirim.");
+    toast("Ucapan dan doa berhasil dikirim.");
   };
 
   function CountdownTimer({ targetDate }) {
@@ -397,29 +441,48 @@ export default function Invitation() {
               }}
             >
               {/* Page 1 - Cover */}
-              <section className="w-full h-screen flex items-center justify-center overflow-hidden">
+              <section
+                ref={coverRef}
+                className="w-full h-screen flex items-center justify-center overflow-hidden relative"
+              >
                 <div className="relative z-10 px-5 text-center">
-                  <p className="text-base font-serif tracking-widest text-gray-800 font-light uppercase drop-shadow-md animate-slideDown">UNDANGAN ACARA WALIMAH</p>
-                  <p className="text-base font-serif text-gray-800 tracking-wide drop-shadow-md animate-slideDown">"NGUNDUH MANTU"</p>
-                  <div className="animate-scaleUp mt-32">
+                  <p className={`text-base font-serif tracking-widest text-gray-800 font-light uppercase drop-shadow-md ${coverVisible ? "animate-slideDown" : "scroll-animate"}`}>UNDANGAN ACARA WALIMAH</p>
+                  <p
+                    className={`text-base font-serif text-gray-800 tracking-wide drop-shadow-md mt-2 ${coverVisible ? "animate-slideDown" : "scroll-animate"}`}
+                    style={{ animationDelay: "0.2s" }}
+                  >
+                    "NGUNDUH MANTU"
+                  </p>
+                  <div
+                    className={`mt-32 ${coverVisible ? "animate-scaleUp" : "scroll-animate"}`}
+                    style={{ animationDelay: "0.4s" }}
+                  >
                     <h2 className="text-2xl font-fugi text-gray-700 drop-shadow-lg">PUTRA PERTAMA DARI PASANGAN</h2>
-                    <h2 className="text-2xl font-alexbrush text-gray-700 italic drop-shadow-lg mt-6">BAPAK HAMBALI, S.Pd.</h2>
-                    <h2 className="text-2xl font-alexbrush mt-5 text-gray-700 italic drop-shadow-lg"> & </h2>
-                    <h2 className="text-2xl font-alexbrush mt-5 text-gray-700 italic drop-shadow-lg">IBU NUR ASIYAH, S.Pd.</h2>
+                    <h2 className="text-2xl font-fugi text-gray-700 italic drop-shadow-lg mt-6">BAPAK HAMBALI, S.Pd.</h2>
+                    <h2 className="text-2xl font-fugi mt-5 text-gray-700 italic drop-shadow-lg">&</h2>
+                    <h2 className="text-2xl font-fugi mt-5 text-gray-700 italic drop-shadow-lg">IBU NUR ASIYAH, S.Pd.</h2>
                     <p className="text-xl md:text-2xl font-serif text-gray-800 mt-8 mb-1 font-medium">22 . 12 . 2025</p>
                   </div>
                 </div>
               </section>
 
               {/* Page 2 - Ayat & Greeting */}
-              <section className="w-full bg-gray-800 bg-opacity-90 px-8 py-12 flex flex-col items-center">
+              <section
+                ref={ayatRef}
+                className="w-full bg-gray-800 bg-opacity-90 px-8 py-12 flex flex-col items-center"
+              >
                 <div className="flex items-center justify-center text-6xl font-fugi text-white mb-10 tracking-[0.25em]">
-                  <span className="animate-slideLeft">R</span>
-                  <span className="mx-4 animate-fadeIn">|</span>
-                  <span className="animate-slideRight">N</span>
+                  <span className={`${ayatVisible ? "animate-slideLeft" : "scroll-animate"}`}>R</span>
+                  <span
+                    className={`mx-4 ${ayatVisible ? "animate-fadeIn" : "scroll-animate"}`}
+                    style={{ animationDelay: "0.3s" }}
+                  >
+                    |
+                  </span>
+                  <span className={`${ayatVisible ? "animate-slideRight" : "scroll-animate"}`}>N</span>
                 </div>
 
-                <div className="text-white text-center max-w-lg animate-fadeIn-delay">
+                <div className={`text-white text-center max-w-lg ${ayatVisible ? "animate-fadeIn-delay" : "scroll-animate"}`}>
                   <p className="text-xl font-serif leading-relaxed mb-4">
                     "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang."
                   </p>
@@ -427,40 +490,48 @@ export default function Invitation() {
                 </div>
               </section>
 
-              <section className="w-full min-h-screen bg-transparent bg-opacity-90 px-8 py-12 flex flex-col items-center">
+              <section
+                ref={greetingRef}
+                className="w-full min-h-screen bg-transparent bg-opacity-90 px-8 py-12 flex flex-col items-center"
+              >
                 {/* Title */}
-                <div className="text-center mb-12">
+                <div className={`text-center mb-12 ${greetingVisible ? "animate-floatIn" : "scroll-animate"}`}>
                   <h2 className="text-xl font-amoresa text-gray-700">R & N</h2>
                 </div>
-                <div className="bg-black bg-opacity-10 border border-white rounded-xl p-8 mt-4 max-w-md w-full shadow-md backdrop-blur-sm animate-slideUp-delay">
-                  <p className="text-gray-700 text-center font-serif text-base mb-6">Assalamu'alaikum Warahmatullahi Wabarakatuh</p>
-                  <p className="text-gray-700 text-center font-serif text-sm leading-relaxed mb-8">Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud menyelenggarakan acara "Walimah Ngunduh Mantu" pernikahan putra-putri kami:</p>
+                <div className={`bg-black bg-opacity-10 border border-white rounded-xl p-8 mt-4 max-w-md w-full shadow-md backdrop-blur-sm ${greetingVisible ? "animate-slideUp-delay" : "scroll-animate"}`}>
+                  <p className={`text-gray-700 text-center font-serif text-base mb-6 ${greetingVisible ? "animate-floatIn-delay-1" : "scroll-animate"}`}>Assalamu'alaikum Warahmatullahi Wabarakatuh</p>
+                  <p className={`text-gray-700 text-center font-serif text-sm leading-relaxed mb-8 ${greetingVisible ? "animate-floatIn-delay-1" : "scroll-animate"}`}>
+                    Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud menyelenggarakan acara "Walimah Ngunduh Mantu" pernikahan putra-putri kami:
+                  </p>
 
-                  <div className="text-center mb-8">
+                  <div className={`text-center mb-8 ${greetingVisible ? "animate-floatIn-delay-2" : "scroll-animate"}`}>
                     <h3 className="text-3xl font-amoresa text-gray-700 mb-1">Riki</h3>
                     <p className="text-gray-700 text-sm mb-1">&</p>
                     <h3 className="text-3xl font-amoresa text-gray-700">Nufus</h3>
                   </div>
 
-                  <p className="text-gray-700 text-center font-serif text-sm leading-relaxed mb-6">Atas perhatian dan do'a restunya, kami mengucapkan terima kasih.</p>
-                  <p className="text-gray-700 text-center font-serif text-sm leading-relaxed mb-6">
+                  <p className={`text-gray-700 text-center font-serif text-sm leading-relaxed mb-6 ${greetingVisible ? "animate-floatIn-delay-3" : "scroll-animate"}`}>Atas perhatian dan do'a restunya, kami mengucapkan terima kasih.</p>
+                  <p className={`text-gray-700 text-center font-serif text-sm leading-relaxed mb-6 ${greetingVisible ? "animate-floatIn-delay-3" : "scroll-animate"}`}>
                     Hormat kami,
                     <br />
                     <span className="font-semibold">Hambali, S.Pd. & Ibu Nur Asiyah, S.Pd.</span>
                   </p>
-                  <p className="text-gray-700 text-center font-serif text-xs">Wassalamu'alaikum Warahmatullahi Wabarakatuh</p>
+                  <p className={`text-gray-700 text-center font-serif text-xs ${greetingVisible ? "animate-floatIn-delay-3" : "scroll-animate"}`}>Wassalamu'alaikum Warahmatullahi Wabarakatuh</p>
                 </div>
               </section>
 
               {/* Page 3 - Biodata & Gallery */}
-              <section className="w-full min-h-screen bg-black bg-opacity-20 px-4 sm:px-8 py-16">
+              <section
+                ref={page3Ref}
+                className="w-full min-h-screen bg-black bg-opacity-20 px-4 sm:px-8 py-16"
+              >
                 <div className="max-w-6xl mx-auto">
                   {/* Title */}
-                  <div className="text-center mb-12">
+                  <div className={`text-center mb-12 ${isOpened && page3Visible ? "animate-slideDown" : "scroll-animate"}`}>
                     <h2 className="text-xl font-amoresa text-gray-700 mb-4">R & N</h2>
                   </div>
 
-                  <div className="mb-6 relative w-64 mx-auto">
+                  <div className={`mb-6 relative w-64 mx-auto ${isOpened && page3Visible ? "animate-scaleUp" : "scroll-animate"}`}>
                     {/* Ornamen Daun Atas */}
                     <img
                       src={ornament}
@@ -487,7 +558,7 @@ export default function Invitation() {
                   </div>
 
                   {/* 4 Photos Grid */}
-                  <div className="grid grid-cols-3 gap-4">
+                  <div className={`grid grid-cols-3 gap-4 ${isOpened && page3Visible ? "animate-slideUp" : "scroll-animate"}`}>
                     {[prewed1, prewed3, prewed5].map((img, i) => (
                       <div
                         key={i}
@@ -503,7 +574,7 @@ export default function Invitation() {
                   </div>
 
                   {/* Divider */}
-                  <div className="w-64 h-32 mx-auto">
+                  <div className={`w-64 h-32 mx-auto ${isOpened && page3Visible ? "animate-scaleUp" : "scroll-animate"}`}>
                     <img
                       src={underline}
                       alt=""
@@ -513,8 +584,7 @@ export default function Invitation() {
                   {/* Couple Details */}
                   <div className="grid grid-cols-1 gap-3 max-w-5xl mx-auto">
                     {/* Groom */}
-                    <div className="text-center bg-white bg-opacity-50 py-10 rounded-lg">
-                      {/* <h3 className="text-5xl sm:text-6xl font-amoresa text-gray-700 mb-2">Riki</h3> */}
+                    <div className={`text-center bg-white bg-opacity-50 py-10 rounded-lg ${isOpened && page3Visible ? "animate-slideLeft" : "scroll-animate"}`}>
                       <h4 className="font-alexbrush text-4xl text-gray-700 mb-1">Riki Nurhamzah, S.H.</h4>
 
                       <p className="text-[12px] font-serif text-gray-700 mb-6 leading-relaxed">Putra Pertama dari Bapak Hambali, S.Pd & Ibu Nur Asiyah, S.Pd.</p>
@@ -538,13 +608,13 @@ export default function Invitation() {
                     </div>
 
                     {/* Divider for mobile */}
-                    <div className="font-amoresa text-4xl mx-auto text-gray-700">&</div>
+                    <div className={`font-amoresa text-4xl mx-auto text-gray-700 ${isOpened && page3Visible ? "animate-scaleUp" : "scroll-animate"}`}>&</div>
 
                     {/* Bride */}
-                    <div className="text-center bg-white bg-opacity-50 py-10 rounded-lg">
+                    <div className={`text-center bg-white bg-opacity-50 py-10 rounded-lg ${isOpened && page3Visible ? "animate-slideRight" : "scroll-animate"}`}>
                       <h4 className="font-alexbrush text-4xl text-gray-700 mb-1">Suratun Nufus, S.M.</h4>
 
-                      <p className="text-[12px] font-serif text-gray-700 mb-6 leading-relaxed">Putri Bungsu Bpk. A. Suja’ih Ardiansyah & Ibu Arsiah</p>
+                      <p className="text-[12px] font-serif text-gray-700 mb-6 leading-relaxed">Putri Bungsu Bpk. A. Suja'ih Ardiansyah & Ibu Arsiah</p>
                       <div className="bg-black bg-opacity-5 rounded-md w-fit px-2 py-1 mx-auto">
                         <a
                           href="https://instagram.com/zhrtnufuss"
@@ -568,20 +638,23 @@ export default function Invitation() {
               </section>
 
               {/* Page 4 - Save The Date */}
-              <section className="w-full bg-gradient-to-b from-gray-900 to-gray-800 py-10 px-8">
+              <section
+                className="w-full bg-gradient-to-b from-gray-900 to-gray-800 py-10 px-8"
+                ref={page4Ref}
+              >
                 {/* Title */}
-                <div className="text-center mb-12">
+                <div className="text-center mb-12 animate-slideDown">
                   <h2 className="text-xl font-amoresa text-gray-200 mb-4">R & N</h2>
                 </div>
                 <div className="py-8 flex flex-col items-center justify-center">
-                  <h2 className="text-5xl font-amoresa text-white mb-8 animate-slideDown">Save The Date</h2>
-                  <p className="text-white text-center font-serif text-lg mb-12 animate-fadeIn-delay">Kami mengundang Anda untuk berbagi kebahagiaan di hari istimewa kami</p>
+                  <h2 className="text-4xl font-amoresa text-white mb-8 animate-fadeIn">Save The Date</h2>
+                  <p className="text-white text-center font-serif text-lg mb-12 animate-slideUp">Kami mengundang Anda untuk berbagi kebahagiaan di hari istimewa kami</p>
 
                   <div className="animate-scaleUp">
                     <CountdownTimer targetDate="2025-12-22T00:00:00" />
                   </div>
 
-                  <div className="mt-12 text-center animate-slideUp-delay">
+                  <div className="mt-12 text-center animate-fadeInUp">
                     <p className="text-white font-alice text-2xl mb-2">Senin</p>
                     <p className="text-white font-alice text-3xl font-bold mb-2">22 Desember 2025</p>
                   </div>
@@ -589,16 +662,19 @@ export default function Invitation() {
               </section>
 
               {/* Page 5 - Detail Acara */}
-              <section className="w-full min-h-screen px-8 py-16 flex flex-col items-center">
+              <section
+                className="w-full min-h-screen px-8 py-16 flex flex-col items-center"
+                ref={page5Ref}
+              >
                 {/* R & N */}
-                <h2 className="text-xl font-amoresa text-gray-700 mb-2">R & N</h2>
+                <h2 className="text-xl font-amoresa text-gray-700 mb-2 animate-slideDown">R & N</h2>
 
-                <h2 className="text-4xl font-alice text-gray-800 mb-6 tracking-widest">ACARA</h2>
+                <h2 className="text-4xl font-alice text-gray-800 mb-6 tracking-widest animate-fadeIn">ACARA</h2>
 
-                <p className="text-sm text-gray-700 font-alice mb-10">Acara yang akan kami selenggarakan :</p>
+                <p className="text-sm text-gray-700 font-alice mb-10 animate-slideUp">Acara yang akan kami selenggarakan :</p>
 
                 {/* Tanggal Besar */}
-                <div className="text-center mb-12">
+                <div className="text-center mb-12 animate-fadeInUp">
                   <h3 className="text-4xl font-alice text-gray-800 mb-2">SENIN</h3>
 
                   <div className="flex items-center justify-center gap-4 text-gray-700 font-alice text-xl">
@@ -620,7 +696,7 @@ export default function Invitation() {
                 </div>
 
                 {/* Card Lokasi */}
-                <div className="bg-white bg-opacity-45 border border-gray-300 rounded-xl w-full max-w-md py-6 px-1 shadow-md text-center">
+                <div className="bg-white bg-opacity-45 border border-gray-300 rounded-xl w-full max-w-md py-6 px-1 shadow-md text-center animate-scaleUp">
                   <svg
                     className="w-6 h-6 flex mx-auto mb-2"
                     fill="black"
@@ -643,7 +719,7 @@ export default function Invitation() {
                   href="https://www.google.com/maps/place/6%C2%B008'21.5%22S+106%C2%B023'06.7%22E/@-6.1393056,106.3851944,17z/data=!3m1!4b1!4m4!3m3!8m2!3d-6.1393056!4d106.3851944?entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoASAFQAw%3D%3D"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-8 flex items-center font-serif font-medium gap-2 px-6 py-3 bg-white bg-opacity-45 text-gray-700 rounded-lg hover:bg-gray-700 transition-all shadow-lg"
+                  className="mt-8 flex items-center font-serif font-medium gap-2 px-6 py-3 bg-white bg-opacity-45 text-gray-700 rounded-lg hover:bg-gray-700 hover:text-white transition-all shadow-lg animate-fadeIn-delay"
                 >
                   <svg
                     className="w-5 h-5"
@@ -660,10 +736,10 @@ export default function Invitation() {
                 </a>
 
                 {/* OR */}
-                <p className="text-gray-700 font-serif mt-4">or</p>
+                <p className="text-gray-700 font-serif mt-4 animate-fadeIn">or</p>
 
                 {/* QR Code */}
-                <div className="mt-4">
+                <div className="mt-4 animate-fadeIn-delay">
                   <img
                     src={qr}
                     alt="QR Code"
@@ -674,7 +750,10 @@ export default function Invitation() {
               </section>
 
               {/* Page 6 - Turut Mengundang */}
-              <section className="w-full min-h-screen bg-gray-800 bg-opacity-90 px-8 py-16 flex flex-col items-center justify-center">
+              <section
+                className="w-full min-h-screen bg-gray-800 bg-opacity-90 px-8 py-16 flex flex-col items-center justify-center"
+                ref={page6Ref}
+              >
                 <h2 className="text-4xl font-amoresa text-white mb-8 animate-slideDown">Turut Mengundang</h2>
                 <p className="text-white text-center font-serif text-base mb-12 max-w-md animate-fadeIn-delay">Tanpa mengurangi rasa hormat, kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk hadir di acara pernikahan kami</p>
 
@@ -684,7 +763,7 @@ export default function Invitation() {
                     <div className="border-t border-white/40 my-3"></div>
                     <p className="text-white font-serif text-base">Keluarga Bapak Ust. Jukri (Alm) - Grobogan, Ceplak, Sukamulya</p>
                     <div className="border-t border-white/40 my-3"></div>
-                    <p className="text-white font-serif text-base">Keluarga Bapak A. Suja’ih Ardiansyah - Pekapuran, Kronjo</p>
+                    <p className="text-white font-serif text-base">Keluarga Bapak A. Suja'ih Ardiansyah - Pekapuran, Kronjo</p>
                     <div className="border-t border-white/40 my-3"></div>
                     <p className="text-white font-serif text-base">Keluarga Bintang Motor - Renged. Kresek</p>
                     <div className="border-t border-white/40 my-3"></div>
@@ -696,15 +775,18 @@ export default function Invitation() {
               </section>
 
               {/* Page 7 - RSVP */}
-              <section className="w-full min-h-screen bg-white/90 backdrop-blur-sm px-8 py-16 flex flex-col items-center">
+              <section
+                className="w-full min-h-screen bg-white/90 backdrop-blur-sm px-8 py-16 flex flex-col items-center"
+                ref={page7Ref}
+              >
                 {/* Title */}
-                <div className="text-center mb-12">
+                <div className="text-center mb-12 animate-slideDown">
                   <h2 className="text-xl font-amoresa text-gray-700">R & N</h2>
                 </div>
-                <h2 className="text-4xl font-fugi text-gray-800 mb-4">RSVP</h2>
-                <p className="text-gray-600 text-center font-serif text-sm mb-12">Mohon konfirmasi kehadiran Anda</p>
+                <h2 className="text-4xl font-fugi text-gray-800 mb-4 animate-fadeIn">RSVP</h2>
+                <p className="text-gray-600 text-center font-serif text-sm mb-12 animate-slideUp">Mohon konfirmasi kehadiran Anda</p>
 
-                <div className="bg-white border-2 border-gray-300 rounded-xl p-8 w-full max-w-md shadow-lg">
+                <div className="bg-white border-2 border-gray-300 rounded-xl p-8 w-full max-w-md shadow-lg animate-scaleUp">
                   <form
                     className="space-y-6"
                     onSubmit={handleSubmit}
@@ -787,8 +869,8 @@ export default function Invitation() {
                       type="submit"
                       disabled={loading}
                       className={`w-full py-3 rounded-lg font-serif shadow-lg transition-all 
-              ${loading ? "bg-gray-500 cursor-not-allowed text-white" : "bg-gray-800 hover:bg-gray-700 text-white"}
-            `}
+          ${loading ? "bg-gray-500 cursor-not-allowed text-white" : "bg-gray-800 hover:bg-gray-700 text-white"}
+        `}
                     >
                       {loading ? "Mengirim..." : "Kirim Konfirmasi"}
                     </button>
@@ -797,12 +879,15 @@ export default function Invitation() {
               </section>
 
               {/* Page 8 - Wishes */}
-              <section className="w-full min-h-screen bg-gray-800 bg-opacity-90 px-8 py-16 flex flex-col items-center">
-                <h2 className="text-4xl font-amoresa text-white mb-4">Ucapan & Doa</h2>
-                <p className="text-white text-center font-serif text-sm mb-12">Berikan ucapan dan doa untuk kami</p>
+              <section
+                className="w-full min-h-screen bg-gray-800 bg-opacity-90 px-8 py-16 flex flex-col items-center"
+                ref={page8Ref}
+              >
+                <h2 className="text-4xl font-amoresa text-white mb-4 animate-slideDown">Ucapan & Doa</h2>
+                <p className="text-white text-center font-serif text-sm mb-12 animate-fadeIn">Berikan ucapan dan doa untuk kami</p>
 
                 {/* Form Ucapan */}
-                <div className="bg-white/10 backdrop-blur-sm border border-white rounded-xl p-8 w-full max-w-md mb-8">
+                <div className="bg-white/10 backdrop-blur-sm border border-white rounded-xl p-8 w-full max-w-md mb-8 animate-scaleUp">
                   <form
                     className="space-y-4"
                     onSubmit={handleWishes}
@@ -810,18 +895,20 @@ export default function Invitation() {
                     <div>
                       <input
                         type="text"
-                        value={wish.nama}
-                        onChange={(e) => setWish({ ...wish, nama: e.target.value })}
-                        className="w-full px-4 py-3 bg-white/20 border border-white/40 rounded-lg text-white"
+                        value={wishForm.nama}
+                        onChange={(e) => setWishForm({ ...wishForm, nama: e.target.value })}
+                        className="w-full px-4 py-3 bg-white/20 border border-white/40 rounded-lg text-white placeholder-white/60"
+                        placeholder="Nama Anda"
                       />
                     </div>
 
                     <div>
                       <textarea
                         rows={4}
-                        value={wish.pesan}
-                        onChange={(e) => setWish({ ...wish, pesan: e.target.value })}
-                        className="w-full px-4 py-3 bg-white/20 border border-white/40 rounded-lg text-white"
+                        value={wishForm.pesan}
+                        onChange={(e) => setWishForm({ ...wishForm, pesan: e.target.value })}
+                        className="w-full px-4 py-3 bg-white/20 border border-white/40 rounded-lg text-white placeholder-white/60"
+                        placeholder="Tulis ucapan dan doa Anda..."
                       />
                     </div>
                     <button
@@ -834,16 +921,16 @@ export default function Invitation() {
                 </div>
 
                 {/* Daftar Ucapan */}
-                <div className="w-full max-w-md space-y-4">
+                <div className="w-full max-w-md space-y-4 animate-fadeIn-delay">
                   {loading && <p className="text-white/70 font-serif text-center">Memuat ucapan...</p>}
 
-                  {!loading && wish.length === 0 && <p className="text-white/70 font-serif text-center">Belum ada ucapan.</p>}
+                  {!loading && wishes.length === 0 && <p className="text-white/70 font-serif text-center">Belum ada ucapan.</p>}
 
                   {!loading &&
-                    wish.map((item, index) => (
+                    wishes.map((item, index) => (
                       <div
                         key={index}
-                        className="bg-white/10 backdrop-blur-sm border border-white/30 rounded-lg p-6"
+                        className="bg-white/10 backdrop-blur-sm border border-white/30 rounded-lg p-6 animate-fadeInUp"
                       >
                         <div className="flex items-start gap-3">
                           <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
@@ -870,33 +957,59 @@ export default function Invitation() {
                         </div>
                       </div>
                     ))}
+                  <div className="flex justify-between items-center text-white mt-6">
+                    <button
+                      onClick={handlePrevPage}
+                      disabled={page === 1}
+                      className={`px-4 py-2 rounded-lg font-serif border border-white/40 
+      ${page === 1 ? "opacity-40 cursor-not-allowed" : "hover:bg-white/20"}`}
+                    >
+                      Prev
+                    </button>
+
+                    <p className="font-serif text-sm text-white/80">
+                      Halaman {page} / {totalPages}
+                    </p>
+
+                    <button
+                      onClick={handleNextPage}
+                      disabled={page === totalPages}
+                      className={`px-4 py-2 rounded-lg font-serif border border-white/40 
+      ${page === totalPages ? "opacity-40 cursor-not-allowed" : "hover:bg-white/20"}`}
+                    >
+                      Next
+                    </button>
+                  </div>
                 </div>
               </section>
 
               {/* Page 9 - Penutup */}
-              <section className="w-full min-h-screen bg-white/90 backdrop-blur-sm px-8 py-16 flex flex-col items-center justify-center">
-                <h2 className="text-4xl font-amoresa text-gray-800 mb-8">Terima Kasih</h2>
+              <section
+                className="w-full min-h-screen bg-white/90 backdrop-blur-sm px-8 py-16 flex flex-col items-center justify-center"
+                ref={page9Ref}
+              >
+                <h2 className="text-4xl font-amoresa text-gray-800 mb-8 animate-slideDown">Terima Kasih</h2>
 
-                <div className="text-center max-w-md mb-12">
+                <div className="text-center max-w-md mb-12 animate-fadeIn">
                   <p className="text-gray-700 font-serif text-lg leading-relaxed mb-6">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu kepada kami.</p>
                   <p className="text-gray-600 font-serif text-base italic">Atas kehadiran dan doa restu dari Bapak/Ibu/Saudara/i, kami ucapkan terima kasih.</p>
                 </div>
 
-                <div className="border-t border-gray-300 w-32 mb-8"></div>
+                <div className="border-t border-gray-300 w-32 mb-8 animate-scaleUp"></div>
 
-                <div className="text-center">
+                <div className="text-center animate-fadeIn-delay">
                   <p className="text-gray-600 font-serif text-sm mb-4">Wassalamu'alaikum Warahmatullahi Wabarakatuh</p>
                   <h3 className="text-4xl font-amoresa text-gray-700 mb-2">Riki & Nufus</h3>
                   <p className="text-gray-500 font-serif text-sm">22 Desember 2025</p>
                 </div>
 
                 {/* Social Media */}
-                <div className="flex gap-4 mt-12">
+                <div className="flex gap-4 mt-12 animate-fadeIn-delay-2">
                   <a
                     href="https://instagram.com/rikihamzah_mc"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-700 transition-all"
+                    className="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-700 hover:scale-110 transition-all"
                   >
                     <svg
                       className="w-6 h-6 text-white"
@@ -910,7 +1023,7 @@ export default function Invitation() {
                     href="https://instagram.com/zhrtnufuss"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-700 transition-all"
+                    className="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-700 hover:scale-110 transition-all"
                   >
                     <svg
                       className="w-6 h-6 text-white"
@@ -924,8 +1037,11 @@ export default function Invitation() {
               </section>
 
               {/* Footer - DigiatGroup */}
-              <footer className="w-full bg-gray-900 px-8 py-8 flex flex-col items-center">
-                <div className="text-center">
+              <footer
+                className="w-full bg-gray-900 px-8 py-8 flex flex-col items-center"
+                ref={footer}
+              >
+                <div className="text-center animate-fadeIn">
                   <p className="text-white/60 font-serif text-xs mb-2">Made with ❤️ by</p>
                   <h3 className="text-2xl font-bold text-white mb-1">DiGiatGroup</h3>
                   <p className="text-white/40 font-serif text-xs">Digital Wedding Invitation</p>
