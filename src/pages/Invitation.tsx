@@ -4,6 +4,7 @@ import sectionName from "../assets/section-name.png";
 import biodata from "../assets/Biodata.png";
 import ornament from "../assets/ornament.png";
 import underline from "../assets/underline.png";
+import qr from "../assets/QR Code Alamat.png";
 import prewed1 from "../assets/prewed1.jpeg";
 import prewed2 from "../assets/prewed2.jpeg";
 import prewed3 from "../assets/prewed3.jpeg";
@@ -21,11 +22,48 @@ export default function Invitation() {
   const [searchParams] = useSearchParams();
   const guestName = searchParams.get("to") || "Tamu Undangan";
   const audioRef = useRef<HTMLAudioElement>(null);
-
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+  const [wish, setWish] = useState({
+    nama: guestName || "",
+    pesan: "",
+  });
   const [nama, setNama] = useState("");
   const [pesan, setPesan] = useState("");
   const [ucapan, setUcapan] = useState([]);
 
+  const fetchWishes = async (pageNum) => {
+    setLoading(true);
+    try {
+      const response = await fetch(`${UrlUcapan}?page=${pageNum}`);
+      const result = await response.json();
+
+      setWish(result.data || []);
+      setTotal(result.total || 0);
+      setTotalPages(result.totalPages || 0);
+      setPage(result.page || 1);
+    } catch (error) {
+      console.error("Error fetching wishes:", error);
+    }
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchWishes(1);
+  }, []);
+
+  const handlePrevPage = () => {
+    if (page > 1) {
+      fetchWishes(page - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (page < totalPages) {
+      fetchWishes(page + 1);
+    }
+  };
   // RSVP
   const [loading, setLoading] = useState(false);
 
@@ -49,6 +87,24 @@ export default function Invitation() {
       body: JSON.stringify(form),
     });
     console.log("RSVP", form);
+
+    setLoading(false);
+    toast("Konfirmasi kehadiran berhasil dikirim.");
+  };
+
+  const handleWishes = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    await fetch(UrlUcapan, {
+      method: "POST",
+      mode: "no-cors",
+      headers: {
+        "Content-Type": "text/plain;charset=utf-8",
+      },
+      body: JSON.stringify(wish),
+    });
+    console.log("", wish);
 
     setLoading(false);
     toast("Konfirmasi kehadiran berhasil dikirim.");
@@ -181,6 +237,16 @@ export default function Invitation() {
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
   }, []);
+  const timeAgo = (dateString) => {
+    const date = new Date(dateString);
+    const now = new Date();
+    const diff = (now - date) / 1000; // in seconds
+
+    if (diff < 60) return "baru saja";
+    if (diff < 3600) return `${Math.floor(diff / 60)} menit yang lalu`;
+    if (diff < 86400) return `${Math.floor(diff / 3600)} jam yang lalu`;
+    return `${Math.floor(diff / 86400)} hari yang lalu`;
+  };
 
   const toggleMusic = () => {
     if (audioRef.current) {
@@ -275,7 +341,7 @@ export default function Invitation() {
 
               {/* Middle Section - Names */}
               <div className="animate-scaleUp">
-                <h2 className="text-5xl font-amoresa text-gray-700 drop-shadow-lg">Riki & Nufus</h2>
+                <h2 className="text-4xl font-amoresa text-gray-700 drop-shadow-lg">Riki & Nufus</h2>
               </div>
 
               {/* Bottom Section - Guest Info */}
@@ -331,14 +397,15 @@ export default function Invitation() {
               }}
             >
               {/* Page 1 - Cover */}
-              <section className="w-full h-screen flex items-center justify-center">
-                <div className="relative z-10 px-8 text-center">
+              <section className="w-full h-screen flex items-center justify-center overflow-hidden">
+                <div className="relative z-10 px-5 text-center">
                   <p className="text-base font-serif tracking-widest text-gray-800 font-light uppercase drop-shadow-md animate-slideDown">UNDANGAN ACARA WALIMAH</p>
-                  <p className="text-base font-serif text-gray-800 tracking-wide drop-shadow-md animate-fadeIn-delay">"NGUNDUH MANTU"</p>
+                  <p className="text-base font-serif text-gray-800 tracking-wide drop-shadow-md animate-slideDown">"NGUNDUH MANTU"</p>
                   <div className="animate-scaleUp mt-32">
-                    <h2 className="text-5xl font-amoresa text-gray-700 italic drop-shadow-lg">Riki</h2>
-                    <h2 className="text-5xl font-amoresa mt-5 text-gray-700 italic drop-shadow-lg"> & </h2>
-                    <h2 className="text-5xl font-amoresa mt-5 text-gray-700 italic drop-shadow-lg"> Nufus</h2>
+                    <h2 className="text-2xl font-fugi text-gray-700 drop-shadow-lg">PUTRA PERTAMA DARI PASANGAN</h2>
+                    <h2 className="text-2xl font-alexbrush text-gray-700 italic drop-shadow-lg mt-6">BAPAK HAMBALI, S.Pd.</h2>
+                    <h2 className="text-2xl font-alexbrush mt-5 text-gray-700 italic drop-shadow-lg"> & </h2>
+                    <h2 className="text-2xl font-alexbrush mt-5 text-gray-700 italic drop-shadow-lg">IBU NUR ASIYAH, S.Pd.</h2>
                     <p className="text-xl md:text-2xl font-serif text-gray-800 mt-8 mb-1 font-medium">22 . 12 . 2025</p>
                   </div>
                 </div>
@@ -379,7 +446,7 @@ export default function Invitation() {
                   <p className="text-gray-700 text-center font-serif text-sm leading-relaxed mb-6">
                     Hormat kami,
                     <br />
-                    <span className="font-semibold">Hambali, S.Pd & Istri</span>
+                    <span className="font-semibold">Hambali, S.Pd. & Ibu Nur Asiyah, S.Pd.</span>
                   </p>
                   <p className="text-gray-700 text-center font-serif text-xs">Wassalamu'alaikum Warahmatullahi Wabarakatuh</p>
                 </div>
@@ -406,7 +473,8 @@ export default function Invitation() {
                       <img
                         src={prewed4}
                         alt="Main Prewedding"
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover object-top"
+                        style={{ objectPosition: "center 20%" }}
                       />
                     </div>
 
@@ -500,7 +568,7 @@ export default function Invitation() {
               </section>
 
               {/* Page 4 - Save The Date */}
-              <section className="w-full min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 py-10 px-8">
+              <section className="w-full bg-gradient-to-b from-gray-900 to-gray-800 py-10 px-8">
                 {/* Title */}
                 <div className="text-center mb-12">
                   <h2 className="text-xl font-amoresa text-gray-200 mb-4">R & N</h2>
@@ -514,26 +582,26 @@ export default function Invitation() {
                   </div>
 
                   <div className="mt-12 text-center animate-slideUp-delay">
-                    <p className="text-white font-serif text-xl mb-2">Minggu</p>
-                    <p className="text-white font-serif text-3xl font-bold mb-2">22 Desember 2025</p>
+                    <p className="text-white font-alice text-2xl mb-2">Senin</p>
+                    <p className="text-white font-alice text-3xl font-bold mb-2">22 Desember 2025</p>
                   </div>
                 </div>
               </section>
 
               {/* Page 5 - Detail Acara */}
-              <section className="w-full min-h-screen bg-gray-700 bg-opacity-10 px-8 py-16 flex flex-col backdrop-blur-sm items-center">
+              <section className="w-full min-h-screen px-8 py-16 flex flex-col items-center">
                 {/* R & N */}
                 <h2 className="text-xl font-amoresa text-gray-700 mb-2">R & N</h2>
 
-                <h2 className="text-4xl font-serif text-gray-800 mb-6 tracking-widest">ACARA</h2>
+                <h2 className="text-4xl font-alice text-gray-800 mb-6 tracking-widest">ACARA</h2>
 
-                <p className="text-sm text-gray-700 font-serif mb-10">Acara yang akan kami selenggarakan :</p>
+                <p className="text-sm text-gray-700 font-alice mb-10">Acara yang akan kami selenggarakan :</p>
 
                 {/* Tanggal Besar */}
                 <div className="text-center mb-12">
-                  <h3 className="text-4xl font-serif text-gray-800 mb-2">SENIN</h3>
+                  <h3 className="text-4xl font-alice text-gray-800 mb-2">SENIN</h3>
 
-                  <div className="flex items-center justify-center gap-4 text-gray-700 font-serif text-xl">
+                  <div className="flex items-center justify-center gap-4 text-gray-700 font-alice text-xl">
                     <span>22</span>
                     <span className="text-3xl">|</span>
                     <span>DESEMBER</span>
@@ -542,25 +610,40 @@ export default function Invitation() {
                   </div>
 
                   <p className="text-gray-700 font-serif mt-4">09.00 WIB</p>
+                  <div className="w-64 h-32 mx-auto -mt-12">
+                    <img
+                      className="w-full h-full object-cover object-top"
+                      src={underline}
+                      alt=""
+                    />
+                  </div>
                 </div>
 
                 {/* Card Lokasi */}
-                <div className="bg-white border border-gray-300 rounded-xl w-full max-w-md p-6 shadow-md text-center">
+                <div className="bg-white bg-opacity-45 border border-gray-300 rounded-xl w-full max-w-md py-6 px-1 shadow-md text-center">
+                  <svg
+                    className="w-6 h-6 flex mx-auto mb-2"
+                    fill="black"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
                   <p className="font-serif text-gray-800 font-bold text-sm mb-1">KEDIAMAN RUMAH</p>
                   <p className="font-serif text-gray-800 text-sm mb-3">BPK. HAMBALI, S.Pd & IBU NUR ASIYAH, S.Pd.</p>
 
-                  <p className="text-gray-600 font-serif text-xs leading-relaxed">
-                    Kp. Renged (Haur Kecil), Ds. Renged RT/RW. 02/02, Kresek, Tangerang, Banten <br />
-                    (Jl. Raya Kresek - Balaraja)
-                  </p>
+                  <p className="text-gray-600 font-serif text-xs leading-relaxed">Kp. Renged (Buyut Ketul),Ds. Renged RT/RW. 02/01, Kresek, Tangerang, Banten (Jl. Raya Kresek - Balaraja)</p>
                 </div>
 
                 {/* Tombol Google Maps */}
                 <a
-                  href="https://maps.google.com"
+                  href="https://www.google.com/maps/place/6%C2%B008'21.5%22S+106%C2%B023'06.7%22E/@-6.1393056,106.3851944,17z/data=!3m1!4b1!4m4!3m3!8m2!3d-6.1393056!4d106.3851944?entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoASAFQAw%3D%3D"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-8 flex items-center gap-2 px-6 py-3 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-all shadow-lg"
+                  className="mt-8 flex items-center font-serif font-medium gap-2 px-6 py-3 bg-white bg-opacity-45 text-gray-700 rounded-lg hover:bg-gray-700 transition-all shadow-lg"
                 >
                   <svg
                     className="w-5 h-5"
@@ -582,7 +665,7 @@ export default function Invitation() {
                 {/* QR Code */}
                 <div className="mt-4">
                   <img
-                    src="/qr.png"
+                    src={qr}
                     alt="QR Code"
                     className="w-40 h-40 mx-auto"
                   />
@@ -597,15 +680,15 @@ export default function Invitation() {
 
                 <div className="bg-white/10 backdrop-blur-sm border border-white rounded-xl p-8 max-w-md w-full animate-scaleUp">
                   <div className="space-y-4 text-center">
-                    <p className="text-white font-serif text-lg">Keluarga Bapak Sanin Rosyidin - Renged, Kresek</p>
+                    <p className="text-white font-serif text-base">Keluarga Bapak Sanin Rosyidin - Renged, Kresek</p>
                     <div className="border-t border-white/40 my-3"></div>
-                    <p className="text-white font-serif text-lg">Keluarga Bapak Ust. Jukri (Alm) - Grobogan, Ceplak, Sukamulya</p>
+                    <p className="text-white font-serif text-base">Keluarga Bapak Ust. Jukri (Alm) - Grobogan, Ceplak, Sukamulya</p>
                     <div className="border-t border-white/40 my-3"></div>
-                    <p className="text-white font-serif text-lg">Keluarga Bapak A. Suja’ih Ardiansyah - Pekapuran, Kronjo</p>
+                    <p className="text-white font-serif text-base">Keluarga Bapak A. Suja’ih Ardiansyah - Pekapuran, Kronjo</p>
                     <div className="border-t border-white/40 my-3"></div>
-                    <p className="text-white font-serif text-lg">Keluarga Bintang Motor - Renged. Kresek</p>
+                    <p className="text-white font-serif text-base">Keluarga Bintang Motor - Renged. Kresek</p>
                     <div className="border-t border-white/40 my-3"></div>
-                    <p className="text-white font-serif text-lg">Keluarga Az-Zahro Crew</p>
+                    <p className="text-white font-serif text-base">Keluarga Az-Zahro Crew</p>
                   </div>
                 </div>
 
@@ -715,24 +798,30 @@ export default function Invitation() {
 
               {/* Page 8 - Wishes */}
               <section className="w-full min-h-screen bg-gray-800 bg-opacity-90 px-8 py-16 flex flex-col items-center">
-                <h2 className="text-5xl font-amoresa text-white mb-4">Ucapan & Doa</h2>
+                <h2 className="text-4xl font-amoresa text-white mb-4">Ucapan & Doa</h2>
                 <p className="text-white text-center font-serif text-sm mb-12">Berikan ucapan dan doa untuk kami</p>
 
                 {/* Form Ucapan */}
                 <div className="bg-white/10 backdrop-blur-sm border border-white rounded-xl p-8 w-full max-w-md mb-8">
-                  <form className="space-y-4">
+                  <form
+                    className="space-y-4"
+                    onSubmit={handleWishes}
+                  >
                     <div>
                       <input
                         type="text"
-                        className="w-full px-4 py-3 bg-white/20 border border-white/40 rounded-lg focus:outline-none focus:border-white text-white placeholder-white/60"
-                        placeholder="Nama Anda"
+                        value={wish.nama}
+                        onChange={(e) => setWish({ ...wish, nama: e.target.value })}
+                        className="w-full px-4 py-3 bg-white/20 border border-white/40 rounded-lg text-white"
                       />
                     </div>
+
                     <div>
                       <textarea
                         rows={4}
-                        className="w-full px-4 py-3 bg-white/20 border border-white/40 rounded-lg focus:outline-none focus:border-white text-white placeholder-white/60"
-                        placeholder="Tulis ucapan & doa Anda..."
+                        value={wish.pesan}
+                        onChange={(e) => setWish({ ...wish, pesan: e.target.value })}
+                        className="w-full px-4 py-3 bg-white/20 border border-white/40 rounded-lg text-white"
                       />
                     </div>
                     <button
@@ -746,33 +835,41 @@ export default function Invitation() {
 
                 {/* Daftar Ucapan */}
                 <div className="w-full max-w-md space-y-4">
-                  {[1, 2, 3].map((i) => (
-                    <div
-                      key={i}
-                      className="bg-white/10 backdrop-blur-sm border border-white/30 rounded-lg p-6"
-                    >
-                      <div className="flex items-start gap-3">
-                        <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
-                          <svg
-                            className="w-6 h-6 text-white"
-                            fill="currentColor"
-                            viewBox="0 0 20 20"
-                          >
-                            <path
-                              fillRule="evenodd"
-                              d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                              clipRule="evenodd"
-                            />
-                          </svg>
-                        </div>
-                        <div className="flex-1">
-                          <h4 className="text-white font-serif font-semibold mb-1">Nama Tamu {i}</h4>
-                          <p className="text-white/80 font-serif text-sm leading-relaxed">Selamat menempuh hidup baru! Semoga menjadi keluarga yang sakinah, mawaddah, warahmah.</p>
-                          <p className="text-white/60 font-serif text-xs mt-2">2 jam yang lalu</p>
+                  {loading && <p className="text-white/70 font-serif text-center">Memuat ucapan...</p>}
+
+                  {!loading && wish.length === 0 && <p className="text-white/70 font-serif text-center">Belum ada ucapan.</p>}
+
+                  {!loading &&
+                    wish.map((item, index) => (
+                      <div
+                        key={index}
+                        className="bg-white/10 backdrop-blur-sm border border-white/30 rounded-lg p-6"
+                      >
+                        <div className="flex items-start gap-3">
+                          <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+                            <svg
+                              className="w-6 h-6 text-white"
+                              fill="currentColor"
+                              viewBox="0 0 20 20"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                                clipRule="evenodd"
+                              />
+                            </svg>
+                          </div>
+
+                          <div className="flex-1">
+                            <h4 className="text-white font-serif font-semibold mb-1">{item.nama || "Tamu"}</h4>
+
+                            <p className="text-white/80 font-serif text-sm leading-relaxed">{item.pesan}</p>
+
+                            <p className="text-white/60 font-serif text-xs mt-2">{timeAgo(item.waktu)}</p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
                 </div>
               </section>
 

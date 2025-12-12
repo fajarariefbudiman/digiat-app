@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Upload, Plus, Trash2, Download } from "lucide-react";
 
+
 export default function SendInvitation() {
   const [inviterName, setInviterName] = useState("");
   const [guestList, setGuestList] = useState("");
@@ -78,12 +79,18 @@ export default function SendInvitation() {
     }
   };
 
+
   const generateMessage = (template, name) => {
-    return template
+    const fotoUrl = "https://digiat-app.vercel.app/img/prewed4.jpeg"; // otomatis menjadi public URL saat build React/Vite
+
+    const message = template
       .replace(/\*\[nama\]\*/g, name)
       .replace("[link-undangan]", `${invUrl}?to=${encodeURIComponent(name)}`)
       .replace("[mempelai]", inviterName || "")
       .trim();
+
+    // SISIPKAN FOTO DI BARIS PALING ATAS
+    return `${fotoUrl}\n\n${message}`;
   };
 
   return (
@@ -204,8 +211,7 @@ export default function SendInvitation() {
                     onClick={() => sendToWhatsApp(guest.message)}
                     className="text-green-600 hover:text-green-700 text-sm font-medium"
                   >
-                    <i className="fa-brands fa-whatsapp"></i>
-                    Kirim
+                    Kirim Via WA
                   </button>
                 </div>
               ))}

@@ -30,6 +30,13 @@ All colors MUST be HSL.
   font-style: normal;
 }
 
+@font-face {
+  font-family: "Alice";
+  src: url("/fonts/Alice.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 
 @layer base {
   :root {

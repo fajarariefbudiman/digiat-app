@@ -64,6 +64,7 @@ export default {
         fugi: ["Fugi", "sans-serif"],
         aboreto: ["Aboreto", "sans-serif"],
         alexbrush: ["Alex Brush", "sans-serif"],
+        alice: ["Alice", "sans-serif"],
       },
       borderRadius: {
         lg: "var(--radius)",
