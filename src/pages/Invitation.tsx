@@ -654,139 +654,167 @@ export default function Invitation() {
 
               {/* Page 4 - Save The Date */}
               <section
-                className="w-full bg-gradient-to-b from-gray-900 to-gray-800 py-10 px-8"
                 ref={page4Ref}
+                className="relative w-full px-8 py-12 flex flex-col items-center bg-gradient-to-b from-gray-900 to-gray-800"
               >
-                {/* Title */}
-                <div className="text-center mb-12 animate-slideDown">
-                  <h2 className="text-xl font-amoresa text-gray-200 mb-4">R & N</h2>
-                </div>
-                <div className="py-8 flex flex-col items-center justify-center">
-                  <h2 className="text-4xl font-amoresa text-white mb-8 animate-fadeIn">Save The Date</h2>
-                  <p className="text-white text-center font-serif text-lg mb-12 animate-slideUp">Kami mengundang Anda untuk berbagi kebahagiaan di hari istimewa kami</p>
+                {/* Layer background solid untuk iOS */}
+                <div className="absolute inset-0 bg-gray-900/90 z-0"></div>
 
-                  <div className="animate-scaleUp">
-                    <CountdownTimer targetDate="2025-12-22T00:00:00" />
+                {/* Konten */}
+                <div className="relative z-10 w-full flex flex-col items-center">
+                  {/* Title */}
+                  <div className="text-center mb-12 animate-slideDown">
+                    <h2 className="text-xl font-amoresa text-gray-200 mb-4">R & N</h2>
                   </div>
 
-                  <div className="mt-12 text-center animate-fadeInUp">
-                    <p className="text-white font-alice text-2xl mb-2">Senin</p>
-                    <p className="text-white font-alice text-3xl font-bold mb-2">22 Desember 2025</p>
+                  <div className="py-8 flex flex-col items-center justify-center">
+                    <h2 className="text-4xl font-amoresa text-white mb-8 animate-slideDown">Save The Date</h2>
+
+                    <p className="text-white text-center font-serif text-lg mb-12 animate-slideUp">Kami mengundang Anda untuk berbagi kebahagiaan di hari istimewa kami</p>
+
+                    <div className="animate-scaleUp">
+                      <CountdownTimer targetDate="2025-12-22T00:00:00" />
+                    </div>
+
+                    <div className="mt-12 text-center animate-fadeInUp">
+                      <p className="text-white font-alice text-2xl mb-2">Senin</p>
+                      <p className="text-white font-alice text-3xl font-bold mb-2">22 Desember 2025</p>
+                    </div>
                   </div>
                 </div>
               </section>
 
               {/* Page 5 - Detail Acara */}
               <section
-                className="w-full min-h-screen px-8 py-16 flex flex-col items-center"
                 ref={page5Ref}
+                className="relative w-full min-h-screen px-8 py-16 flex flex-col items-center"
               >
-                {/* R & N */}
-                <h2 className="text-xl font-amoresa text-gray-700 mb-2 animate-slideDown">R & N</h2>
+                {/* Background Layer untuk stabil di iOS */}
+                {/* <div className="absolute inset-0 bg-gray-100/90 z-0"></div> */}
 
-                <h2 className="text-4xl font-alice text-gray-800 mb-6 tracking-widest animate-fadeIn">ACARA</h2>
+                {/* Konten */}
+                <div className="relative z-10 flex flex-col items-center w-full">
+                  {/* R & N */}
+                  <h2 className="text-xl font-amoresa text-gray-700 mb-2 animate-slideDown">R & N</h2>
 
-                <p className="text-sm text-gray-700 font-alice mb-10 animate-slideUp">Acara yang akan kami selenggarakan :</p>
+                  <h2 className="text-4xl font-alice text-gray-800 mb-6 tracking-widest animate-fadeIn">ACARA</h2>
 
-                {/* Tanggal Besar */}
-                <div className="text-center mb-12 animate-fadeInUp">
-                  <h3 className="text-4xl font-alice text-gray-800 mb-2">SENIN</h3>
+                  <p className="text-sm text-gray-700 font-alice mb-10 animate-slideUp">Acara yang akan kami selenggarakan :</p>
 
-                  <div className="flex items-center justify-center gap-4 text-gray-700 font-alice text-xl">
-                    <span>22</span>
-                    <span className="text-3xl">|</span>
-                    <span>DESEMBER</span>
-                    <span className="text-3xl">|</span>
-                    <span>2025</span>
+                  {/* Tanggal Besar */}
+                  <div className="text-center mb-12 animate-fadeInUp">
+                    <h3 className="text-4xl font-alice text-gray-800 mb-2">SENIN</h3>
+
+                    <div className="flex items-center justify-center gap-4 text-gray-700 font-alice text-xl">
+                      <span>22</span>
+                      <span className="text-3xl">|</span>
+                      <span>DESEMBER</span>
+                      <span className="text-3xl">|</span>
+                      <span>2025</span>
+                    </div>
+
+                    <p className="text-gray-700 font-serif mt-4">09.00 WIB</p>
+
+                    <div className="w-64 h-32 mx-auto -mt-12">
+                      <img
+                        className="w-full h-full object-cover object-top"
+                        src={underline}
+                        alt=""
+                      />
+                    </div>
                   </div>
 
-                  <p className="text-gray-700 font-serif mt-4">09.00 WIB</p>
-                  <div className="w-64 h-32 mx-auto -mt-12">
+                  {/* Card Lokasi */}
+                  <div className="bg-white bg-opacity-45 border border-gray-300 rounded-xl w-full max-w-md py-6 px-1 shadow-md text-center animate-scaleUp">
+                    <svg
+                      className="w-6 h-6 flex mx-auto mb-2"
+                      fill="black"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+
+                    <p className="font-serif text-gray-800 font-bold text-sm mb-1">KEDIAMAN RUMAH</p>
+                    <p className="font-serif text-gray-800 text-sm mb-3">BPK. HAMBALI, S.Pd & IBU NUR ASIYAH, S.Pd.</p>
+
+                    <p className="text-gray-600 font-serif text-xs leading-relaxed">Kp. Renged (Buyut Ketul), Ds. Renged RT/RW. 02/01, Kresek, Tangerang, Banten (Jl. Raya Kresek - Balaraja)</p>
+                  </div>
+
+                  {/* Tombol Google Maps */}
+                  <a
+                    href="https://www.google.com/maps/place/6%C2%B008'21.5%22S+106%C2%B023'06.7%22E/@-6.1393056,106.3851944,17z/data=!3m1!4b1!4m4!3m3!8m2!3d-6.1393056!4d106.3851944?entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoASAFQAw%3D%3D"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-8 flex items-center font-serif font-medium gap-2 px-6 py-3 bg-white bg-opacity-45 text-gray-700 rounded-lg hover:bg-gray-700 hover:text-white transition-all shadow-lg animate-fadeIn-delay"
+                  >
+                    <svg
+                      className="w-5 h-5"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    LOKASI DI GOOGLE MAP
+                  </a>
+
+                  {/* OR */}
+                  <p className="text-gray-700 font-serif mt-4 animate-fadeIn">or</p>
+
+                  {/* QR Code */}
+                  <div className="mt-4 animate-fadeIn-delay">
                     <img
-                      className="w-full h-full object-cover object-top"
-                      src={underline}
-                      alt=""
+                      src={qr}
+                      alt="QR Code"
+                      className="w-40 h-40 mx-auto"
                     />
+                    <p className="text-xs text-gray-600 mt-2">Scan Here to Google Map</p>
                   </div>
-                </div>
-
-                {/* Card Lokasi */}
-                <div className="bg-white bg-opacity-45 border border-gray-300 rounded-xl w-full max-w-md py-6 px-1 shadow-md text-center animate-scaleUp">
-                  <svg
-                    className="w-6 h-6 flex mx-auto mb-2"
-                    fill="black"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  <p className="font-serif text-gray-800 font-bold text-sm mb-1">KEDIAMAN RUMAH</p>
-                  <p className="font-serif text-gray-800 text-sm mb-3">BPK. HAMBALI, S.Pd & IBU NUR ASIYAH, S.Pd.</p>
-
-                  <p className="text-gray-600 font-serif text-xs leading-relaxed">Kp. Renged (Buyut Ketul),Ds. Renged RT/RW. 02/01, Kresek, Tangerang, Banten (Jl. Raya Kresek - Balaraja)</p>
-                </div>
-
-                {/* Tombol Google Maps */}
-                <a
-                  href="https://www.google.com/maps/place/6%C2%B008'21.5%22S+106%C2%B023'06.7%22E/@-6.1393056,106.3851944,17z/data=!3m1!4b1!4m4!3m3!8m2!3d-6.1393056!4d106.3851944?entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoASAFQAw%3D%3D"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-8 flex items-center font-serif font-medium gap-2 px-6 py-3 bg-white bg-opacity-45 text-gray-700 rounded-lg hover:bg-gray-700 hover:text-white transition-all shadow-lg animate-fadeIn-delay"
-                >
-                  <svg
-                    className="w-5 h-5"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  LOKASI DI GOOGLE MAP
-                </a>
-
-                {/* OR */}
-                <p className="text-gray-700 font-serif mt-4 animate-fadeIn">or</p>
-
-                {/* QR Code */}
-                <div className="mt-4 animate-fadeIn-delay">
-                  <img
-                    src={qr}
-                    alt="QR Code"
-                    className="w-40 h-40 mx-auto"
-                  />
-                  <p className="text-xs text-gray-600 mt-2">Scan Here to Google Map</p>
                 </div>
               </section>
 
               {/* Page 6 - Turut Mengundang */}
               <section
-                className="w-full min-h-screen bg-gray-800 bg-opacity-90 px-8 py-16 flex flex-col items-center justify-center"
                 ref={page6Ref}
+                className="relative w-full min-h-screen px-8 py-16 flex flex-col items-center justify-center"
               >
-                <h2 className="text-4xl font-amoresa text-white mb-8 animate-slideDown">Turut Mengundang</h2>
-                <p className="text-white text-center font-serif text-base mb-12 max-w-md animate-fadeIn-delay">Tanpa mengurangi rasa hormat, kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk hadir di acara pernikahan kami</p>
+                {/* Background Layer */}
+                <div className="absolute inset-0 bg-gray-800 opacity-90 z-0"></div>
 
-                <div className="bg-white/10 backdrop-blur-sm border border-white rounded-xl p-8 max-w-md w-full animate-scaleUp">
-                  <div className="space-y-4 text-center">
-                    <p className="text-white font-serif text-base">Keluarga Bapak Sanin Rosyidin - Renged, Kresek</p>
-                    <div className="border-t border-white/40 my-3"></div>
-                    <p className="text-white font-serif text-base">Keluarga Bapak Ust. Jukri (Alm) - Grobogan, Ceplak, Sukamulya</p>
-                    <div className="border-t border-white/40 my-3"></div>
-                    <p className="text-white font-serif text-base">Keluarga Bapak A. Suja'ih Ardiansyah - Pekapuran, Kronjo</p>
-                    <div className="border-t border-white/40 my-3"></div>
-                    <p className="text-white font-serif text-base">Keluarga Bintang Motor - Renged. Kresek</p>
-                    <div className="border-t border-white/40 my-3"></div>
-                    <p className="text-white font-serif text-base">Keluarga Az-Zahro Crew</p>
+                {/* Konten */}
+                <div className="relative z-10 flex flex-col items-center w-full">
+                  <h2 className="text-4xl font-amoresa text-white mb-8 animate-slideDown">Turut Mengundang</h2>
+
+                  <p className="text-white text-center font-serif text-base mb-12 max-w-md animate-fadeIn-delay">Tanpa mengurangi rasa hormat, kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk hadir di acara pernikahan kami</p>
+
+                  {/* Card List Undangan */}
+                  <div className="bg-white/10 backdrop-blur-sm border border-white rounded-xl p-8 max-w-md w-full animate-scaleUp">
+                    <div className="space-y-4 text-center">
+                      <p className="text-white font-serif text-base">Keluarga Bapak Sanin Rosyidin - Renged, Kresek</p>
+                      <div className="border-t border-white/40 my-3"></div>
+
+                      <p className="text-white font-serif text-base">Keluarga Bapak Ust. Jukri (Alm) - Grobogan, Ceplak, Sukamulya</p>
+                      <div className="border-t border-white/40 my-3"></div>
+
+                      <p className="text-white font-serif text-base">Keluarga Bapak A. Suja'ih Ardiansyah - Pekapuran, Kronjo</p>
+                      <div className="border-t border-white/40 my-3"></div>
+
+                      <p className="text-white font-serif text-base">Keluarga Bintang Motor - Renged. Kresek</p>
+                      <div className="border-t border-white/40 my-3"></div>
+
+                      <p className="text-white font-serif text-base">Keluarga Az-Zahro Crew</p>
+                    </div>
                   </div>
-                </div>
 
-                <p className="text-white text-center font-serif text-sm mt-12 italic animate-fadeIn-delay-2">Merupakan suatu kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu</p>
+                  <p className="text-white text-center font-serif text-sm mt-12 italic animate-fadeIn-delay-2">Merupakan suatu kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu</p>
+                </div>
               </section>
 
               {/* Page 7 - RSVP */}
@@ -895,105 +923,115 @@ export default function Invitation() {
 
               {/* Page 8 - Wishes */}
               <section
-                className="w-full min-h-screen bg-gray-800 bg-opacity-90 px-8 py-16 flex flex-col items-center"
                 ref={page8Ref}
+                className="relative w-full min-h-screen px-8 py-16 flex flex-col items-center"
               >
-                <h2 className="text-4xl font-amoresa text-white mb-4 animate-slideDown">Ucapan & Doa</h2>
-                <p className="text-white text-center font-serif text-sm mb-12 animate-fadeIn">Berikan ucapan dan doa untuk kami</p>
+                {/* Background Layer */}
+                <div className="absolute inset-0 bg-gray-800 opacity-90 z-0"></div>
 
-                {/* Form Ucapan */}
-                <div className="bg-white/10 backdrop-blur-sm border border-white rounded-xl p-8 w-full max-w-md mb-8 animate-scaleUp">
-                  <form
-                    className="space-y-4"
-                    onSubmit={handleWishes}
-                  >
-                    <div>
-                      <input
-                        type="text"
-                        value={wishForm.nama}
-                        onChange={(e) => setWishForm({ ...wishForm, nama: e.target.value })}
-                        className="w-full px-4 py-3 bg-white/20 border border-white/40 rounded-lg text-white placeholder-white/60"
-                        placeholder="Nama Anda"
-                      />
-                    </div>
+                {/* Konten */}
+                <div className="relative z-10 w-full flex flex-col items-center">
+                  <h2 className="text-4xl font-amoresa text-white mb-4 animate-slideDown">Ucapan & Doa</h2>
 
-                    <div>
-                      <textarea
-                        rows={4}
-                        value={wishForm.pesan}
-                        onChange={(e) => setWishForm({ ...wishForm, pesan: e.target.value })}
-                        className="w-full px-4 py-3 bg-white/20 border border-white/40 rounded-lg text-white placeholder-white/60"
-                        placeholder="Tulis ucapan dan doa Anda..."
-                      />
-                    </div>
-                    <button
-                      type="submit"
-                      className="w-full bg-white text-gray-800 py-3 rounded-lg hover:bg-gray-100 transition-all font-serif font-semibold shadow-lg"
+                  <p className="text-white text-center font-serif text-sm mb-12 animate-fadeIn">Berikan ucapan dan doa untuk kami</p>
+
+                  {/* Form Ucapan */}
+                  <div className="bg-white/10 backdrop-blur-sm border border-white rounded-xl p-8 w-full max-w-md mb-8 animate-scaleUp">
+                    <form
+                      className="space-y-4"
+                      onSubmit={handleWishes}
                     >
-                      Kirim Ucapan
-                    </button>
-                  </form>
-                </div>
+                      <div>
+                        <input
+                          type="text"
+                          value={wishForm.nama}
+                          onChange={(e) => setWishForm({ ...wishForm, nama: e.target.value })}
+                          className="w-full px-4 py-3 bg-white/20 border border-white/40 rounded-lg text-white placeholder-white/60"
+                          placeholder="Nama Anda"
+                        />
+                      </div>
 
-                {/* Daftar Ucapan */}
-                <div className="w-full max-w-md space-y-4 animate-fadeIn-delay">
-                  {loading && <p className="text-white/70 font-serif text-center">Memuat ucapan...</p>}
+                      <div>
+                        <textarea
+                          rows={4}
+                          value={wishForm.pesan}
+                          onChange={(e) => setWishForm({ ...wishForm, pesan: e.target.value })}
+                          className="w-full px-4 py-3 bg-white/20 border border-white/40 rounded-lg text-white placeholder-white/60"
+                          placeholder="Tulis ucapan dan doa Anda..."
+                        />
+                      </div>
 
-                  {!loading && wishes.length === 0 && <p className="text-white/70 font-serif text-center">Belum ada ucapan.</p>}
-
-                  {!loading &&
-                    wishes.map((item, index) => (
-                      <div
-                        key={index}
-                        className="bg-white/10 backdrop-blur-sm border border-white/30 rounded-lg p-6 animate-fadeInUp"
+                      <button
+                        type="submit"
+                        className="w-full bg-white text-gray-800 py-3 rounded-lg hover:bg-gray-100 transition-all font-serif font-semibold shadow-lg"
                       >
-                        <div className="flex items-start gap-3">
-                          <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
-                            <svg
-                              className="w-6 h-6 text-white"
-                              fill="currentColor"
-                              viewBox="0 0 20 20"
-                            >
-                              <path
-                                fillRule="evenodd"
-                                d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                                clipRule="evenodd"
-                              />
-                            </svg>
-                          </div>
+                        Kirim Ucapan
+                      </button>
+                    </form>
+                  </div>
 
-                          <div className="flex-1">
-                            <h4 className="text-white font-serif font-semibold mb-1">{item.nama || "Tamu"}</h4>
+                  {/* Daftar Ucapan */}
+                  <div className="w-full max-w-md space-y-4 animate-fadeIn-delay">
+                    {loading && <p className="text-white/70 font-serif text-center">Memuat ucapan...</p>}
 
-                            <p className="text-white/80 font-serif text-sm leading-relaxed">{item.pesan}</p>
+                    {!loading && wishes.length === 0 && <p className="text-white/70 font-serif text-center">Belum ada ucapan.</p>}
 
-                            <p className="text-white/60 font-serif text-xs mt-2">{timeAgo(item.waktu)}</p>
+                    {!loading &&
+                      wishes.map((item, index) => (
+                        <div
+                          key={index}
+                          className="bg-white/10 backdrop-blur-sm border border-white/30 rounded-lg p-6 animate-fadeInUp"
+                        >
+                          <div className="flex items-start gap-3">
+                            {/* Icon */}
+                            <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+                              <svg
+                                className="w-6 h-6 text-white"
+                                fill="currentColor"
+                                viewBox="0 0 20 20"
+                              >
+                                <path
+                                  fillRule="evenodd"
+                                  d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                                  clipRule="evenodd"
+                                />
+                              </svg>
+                            </div>
+
+                            {/* Konten Wish */}
+                            <div className="flex-1">
+                              <h4 className="text-white font-serif font-semibold mb-1">{item.nama || "Tamu"}</h4>
+
+                              <p className="text-white/80 font-serif text-sm leading-relaxed">{item.pesan}</p>
+
+                              <p className="text-white/60 font-serif text-xs mt-2">{timeAgo(item.waktu)}</p>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    ))}
-                  <div className="flex justify-between items-center text-white mt-6">
-                    <button
-                      onClick={handlePrevPage}
-                      disabled={page === 1}
-                      className={`px-4 py-2 rounded-lg font-serif border border-white/40 
-      ${page === 1 ? "opacity-40 cursor-not-allowed" : "hover:bg-white/20"}`}
-                    >
-                      Prev
-                    </button>
+                      ))}
 
-                    <p className="font-serif text-sm text-white/80">
-                      Halaman {page} / {totalPages}
-                    </p>
+                    {/* Pagination */}
+                    <div className="flex justify-between items-center text-white mt-6">
+                      <button
+                        onClick={handlePrevPage}
+                        disabled={page === 1}
+                        className={`px-4 py-2 rounded-lg font-serif border border-white/40 ${page === 1 ? "opacity-40 cursor-not-allowed" : "hover:bg-white/20"}`}
+                      >
+                        Prev
+                      </button>
 
-                    <button
-                      onClick={handleNextPage}
-                      disabled={page === totalPages}
-                      className={`px-4 py-2 rounded-lg font-serif border border-white/40 
-      ${page === totalPages ? "opacity-40 cursor-not-allowed" : "hover:bg-white/20"}`}
-                    >
-                      Next
-                    </button>
+                      <p className="font-serif text-sm text-white/80">
+                        Halaman {page} / {totalPages}
+                      </p>
+
+                      <button
+                        onClick={handleNextPage}
+                        disabled={page === totalPages}
+                        className={`px-4 py-2 rounded-lg font-serif border border-white/40 ${page === totalPages ? "opacity-40 cursor-not-allowed" : "hover:bg-white/20"}`}
+                      >
+                        Next
+                      </button>
+                    </div>
                   </div>
                 </div>
               </section>
@@ -1053,16 +1091,30 @@ export default function Invitation() {
 
               {/* Footer - DigiatGroup */}
               <footer
-                className="w-full bg-gray-900 px-8 py-8 flex flex-col items-center"
                 ref={footer}
+                className="relative w-full px-8 py-12 flex flex-col items-center justify-center overflow-hidden"
               >
-                <div className="text-center animate-fadeIn">
+                {/* Background image layer */}
+                <div
+                  className="absolute inset-0 bg-center bg-no-repeat bg-cover opacity-30"
+                  style={{
+                    backgroundImage: `url(${cover})`,
+                  }}
+                ></div>
+
+                {/* Overlay hitam transparan agar teks tetap terbaca */}
+                <div className="absolute inset-0 bg-gray-700"></div>
+
+                {/* Content */}
+                <div className="relative z-10 text-center animate-fadeIn">
                   <p className="text-white/60 font-serif text-xs mb-2">Made with ❤️ by</p>
                   <h3 className="text-2xl font-bold text-white mb-1">DiGiatGroup</h3>
                   <p className="text-white/40 font-serif text-xs">Digital Wedding Invitation</p>
                 </div>
-                <div className="border-t border-white/20 w-full max-w-xs my-4"></div>
-                <p className="text-white/40 text-xs font-serif">© 2025 All Rights Reserved</p>
+
+                <div className="relative z-10 border-t border-white/20 w-full max-w-xs my-4"></div>
+
+                <p className="relative z-10 text-white/40 text-xs font-serif">© 2025 All Rights Reserved</p>
               </footer>
             </div>
           </div>
