@@ -315,7 +315,7 @@ export default function Invitation() {
         loop
       >
         <source
-          src="/songs/song.mp3"
+          src="/songs/song1.mp3"
           type="audio/mpeg"
         />
       </audio>
@@ -357,7 +357,7 @@ export default function Invitation() {
       {/* Cover Page - Fixed position mobile size */}
       {!isOpened && (
         <div className="fixed inset-0 w-full h-screen flex items-center justify-center bg-white z-50">
-          <div className="relative w-full max-w-[430px] h-full flex items-center justify-center">
+          <div className="relative w-full max-w-[430px] h-full flex items-center justify-center py-11">
             {/* Background Image */}
             <div className="absolute inset-0 flex items-center justify-center">
               <img
@@ -368,12 +368,12 @@ export default function Invitation() {
             </div>
 
             {/* Cover Content */}
-            <div className="relative z-10 px-12 text-center w-full flex flex-col items-center justify-between h-full py-16">
+            <div className="relative z-10 px-12 text-center w-full flex flex-col items-center justify-between h-full py-10">
               {/* Top Section */}
               <div className="flex flex-col items-center space-y-6">
                 {/* R & N */}
                 <div className="animate-slideDown">
-                  <h1 className="text-5xl font-amoresa text-gray-700 tracking-wider drop-shadow-lg">R & N</h1>
+                  <h1 className="text-2xl font-amoresa text-gray-700 tracking-wider drop-shadow-lg">R & N</h1>
                 </div>
 
                 {/* Undangan Acara Walimah */}
@@ -445,35 +445,44 @@ export default function Invitation() {
                 ref={coverRef}
                 className="relative z-10 w-full h-screen flex items-center justify-center"
               >
-                <div className="px-5 text-center">
-                  <p
-                    className={`text-base font-serif tracking-widest text-gray-800 font-light uppercase drop-shadow-md
-        ${coverVisible ? "animate-slideDown" : "scroll-animate"}`}
-                  >
-                    UNDANGAN ACARA WALIMAH
-                  </p>
+                <div className="px-5 text-center w-full h-full flex flex-col justify-between py-20">
+                  {/* TOP SECTION */}
+                  <div className={`${coverVisible ? "animate-slideDown" : "scroll-animate"}`}>
+                    <p className="text-base font-serif tracking-widest text-gray-800 font-light uppercase drop-shadow-md">UNDANGAN ACARA WALIMAH</p>
 
-                  <p
-                    className={`text-base font-serif text-gray-800 tracking-wide drop-shadow-md mt-2
-        ${coverVisible ? "animate-slideDown" : "scroll-animate"}`}
-                    style={{ animationDelay: "0.2s" }}
-                  >
-                    "NGUNDUH MANTU"
-                  </p>
+                    <p
+                      className="text-base font-serif text-gray-800 tracking-wide drop-shadow-md mt-2"
+                      style={{ animationDelay: "0.2s" }}
+                    >
+                      "NGUNDUH MANTU"
+                    </p>
 
+                    <p
+                      className="text-base font-serif text-gray-800 tracking-wide drop-shadow-md mt-2"
+                      style={{ animationDelay: "0.2s" }}
+                    >
+                      PUTRA PERTAMA DARI PASANGAN
+                    </p>
+                  </div>
+
+                  {/* CENTER SECTION */}
                   <div
-                    className={`mt-32 ${coverVisible ? "animate-scaleUp" : "scroll-animate"}`}
+                    className={`${coverVisible ? "animate-scaleUp" : "scroll-animate"}`}
                     style={{ animationDelay: "0.4s" }}
                   >
-                    <h2 className="text-2xl font-fugi text-gray-700 drop-shadow-lg">PUTRA PERTAMA DARI PASANGAN</h2>
-
-                    <h2 className="text-2xl font-fugi text-gray-700 italic drop-shadow-lg mt-6">BAPAK HAMBALI, S.Pd.</h2>
+                    <h2 className="text-2xl font-fugi text-gray-700 italic drop-shadow-lg">BAPAK HAMBALI, S.Pd.</h2>
 
                     <h2 className="text-2xl font-fugi mt-5 text-gray-700 italic drop-shadow-lg">&</h2>
 
                     <h2 className="text-2xl font-fugi mt-5 text-gray-700 italic drop-shadow-lg">IBU NUR ASIYAH, S.Pd.</h2>
+                  </div>
 
-                    <p className="text-xl md:text-2xl font-serif text-gray-800 mt-8 mb-1 font-medium">22 . 12 . 2025</p>
+                  {/* BOTTOM SECTION */}
+                  <div
+                    className={`${coverVisible ? "animate-scaleUp" : "scroll-animate"}`}
+                    style={{ animationDelay: "0.6s" }}
+                  >
+                    <p className="text-xl md:text-2xl font-serif text-gray-800 font-medium">22 . 12 . 2025</p>
                   </div>
                 </div>
               </section>
@@ -496,7 +505,7 @@ export default function Invitation() {
                     <span className={`${ayatVisible ? "animate-slideRight" : "scroll-animate"}`}>N</span>
                   </div>
 
-                  <div className={`text-white text-center max-w-lg ${ayatVisible ? "animate-fadeIn-delay" : "scroll-animate"}`}>
+                  <div className={`text-white text-center max-w-lg ${ayatVisible ? "animate-scaleUp" : "scroll-animate"}`}>
                     <p className="text-xl font-serif leading-relaxed mb-4">
                       "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang."
                     </p>
@@ -507,13 +516,13 @@ export default function Invitation() {
 
               <section
                 ref={greetingRef}
-                className="w-full min-h-screen bg-transparent bg-opacity-90 px-8 py-12 flex flex-col items-center"
+                className="w-full bg-transparent bg-opacity-90 px-8 py-12 flex flex-col items-center"
               >
                 {/* Title */}
                 <div className={`text-center mb-12 ${greetingVisible ? "animate-scaleUp" : "scroll-animate"}`}>
                   <h2 className="text-xl font-amoresa text-gray-700">R & N</h2>
                 </div>
-                <div className={`bg-black bg-opacity-10 border border-white rounded-xl p-8 mt-4 max-w-md w-full shadow-md backdrop-blur-sm ${greetingVisible ? "animate-slideUp-delay" : "scroll-animate"}`}>
+                <div className={`bg-black bg-opacity-10 border border-white rounded-xl p-8 mt-4 max-w-md w-full shadow-md backdrop-blur-sm ${greetingVisible ? "animate-slideUp" : "scroll-animate"}`}>
                   <p className={`text-gray-700 text-center font-serif text-base mb-6 ${greetingVisible ? "animate-scaleUp" : "scroll-animate"}`}>Assalamu'alaikum Warahmatullahi Wabarakatuh</p>
                   <p className={`text-gray-700 text-center font-serif text-sm leading-relaxed mb-8 ${greetingVisible ? "animate-scaleUp" : "scroll-animate"}`}>
                     Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud menyelenggarakan acara "Walimah Ngunduh Mantu" pernikahan putra-putri kami:
@@ -521,7 +530,7 @@ export default function Invitation() {
 
                   <div className={`text-center mb-8 ${greetingVisible ? "animate-scaleUp" : "scroll-animate"}`}>
                     <h3 className="text-3xl font-amoresa text-gray-700 mb-1">Riki</h3>
-                    <p className="text-gray-700 text-sm mb-1">&</p>
+                    <p className="text-gray-700 font-amoresa text-3xl font-semibold mb-1">&</p>
                     <h3 className="text-3xl font-amoresa text-gray-700">Nufus</h3>
                   </div>
 
@@ -531,7 +540,7 @@ export default function Invitation() {
                     <br />
                     <span className="font-semibold">Hambali, S.Pd. & Ibu Nur Asiyah, S.Pd.</span>
                   </p>
-                  <p className={`text-gray-700 text-center font-serif text-xs ${greetingVisible ? "animate-scaleUp" : "scroll-animate"}`}>Wassalamu'alaikum Warahmatullahi Wabarakatuh</p>
+                  {/* <p className={`text-gray-700 text-center font-serif text-xs ${greetingVisible ? "animate-scaleUp" : "scroll-animate"}`}>Wassalamu'alaikum Warahmatullahi Wabarakatuh</p> */}
                 </div>
               </section>
 
@@ -542,9 +551,9 @@ export default function Invitation() {
               >
                 <div className="max-w-6xl mx-auto">
                   {/* Title */}
-                  <div className={`text-center mb-12 ${isOpened && page3Visible ? "animate-slideDown" : "scroll-animate"}`}>
+                  {/* <div className={`text-center mb-12 ${isOpened && page3Visible ? "animate-slideDown" : "scroll-animate"}`}>
                     <h2 className="text-xl font-amoresa text-gray-700 mb-4">R & N</h2>
-                  </div>
+                  </div> */}
 
                   <div className={`mb-6 relative w-64 mx-auto ${isOpened && page3Visible ? "animate-scaleUp" : "scroll-animate"}`}>
                     {/* Ornamen Daun Atas */}
@@ -599,10 +608,10 @@ export default function Invitation() {
                   {/* Couple Details */}
                   <div className="grid grid-cols-1 gap-3 max-w-5xl mx-auto">
                     {/* Groom */}
-                    <div className={`text-center bg-white bg-opacity-50 py-10 rounded-lg ${isOpened && page3Visible ? "animate-slideLeft" : "scroll-animate"}`}>
+                    <div className={`text-center bg-white bg-opacity-50 py-10 rounded-lg ${isOpened && page3Visible ? "animate-scaleUp" : "scroll-animate"}`}>
                       <h4 className="font-alexbrush text-4xl text-gray-700 mb-1">Riki Nurhamzah, S.H.</h4>
 
-                      <p className="text-[12px] font-serif text-gray-700 mb-6 leading-relaxed">Putra Pertama dari Bapak Hambali, S.Pd & Ibu Nur Asiyah, S.Pd.</p>
+                      <p className="text-[12px] font-serif text-gray-700 mb-6 leading-relaxed">Putra Pertama dari Bpk Hambali, S.Pd & Ibu Nur Asiyah, S.Pd.</p>
                       <div className="bg-black bg-opacity-5 rounded-md w-fit px-2 py-1 mx-auto">
                         <a
                           href="https://instagram.com/rikihamzah_mc"
@@ -626,7 +635,7 @@ export default function Invitation() {
                     <div className={`font-amoresa text-4xl mx-auto text-gray-700 ${isOpened && page3Visible ? "animate-scaleUp" : "scroll-animate"}`}>&</div>
 
                     {/* Bride */}
-                    <div className={`text-center bg-white bg-opacity-50 py-10 rounded-lg ${isOpened && page3Visible ? "animate-slideRight" : "scroll-animate"}`}>
+                    <div className={`text-center bg-white bg-opacity-50 py-10 rounded-lg ${isOpened && page3Visible ? "animate-scaleUp" : "scroll-animate"}`}>
                       <h4 className="font-alexbrush text-4xl text-gray-700 mb-1">Suratun Nufus, S.M.</h4>
 
                       <p className="text-[12px] font-serif text-gray-700 mb-6 leading-relaxed">Putri Bungsu Bpk. A. Suja'ih Ardiansyah & Ibu Arsiah</p>
@@ -663,9 +672,9 @@ export default function Invitation() {
                 {/* Konten */}
                 <div className="relative z-10 w-full flex flex-col items-center">
                   {/* Title */}
-                  <div className={`text-center mb-12 ${page4Visible ? "animate-slideDown" : ""}`}>
+                  {/* <div className={`text-center mb-12 ${page4Visible ? "animate-slideDown" : ""}`}>
                     <h2 className="text-xl font-amoresa text-gray-200 mb-4">R & N</h2>
-                  </div>
+                  </div> */}
 
                   <div className="py-8 flex flex-col items-center justify-center">
                     <h2 className={`text-4xl font-amoresa text-white mb-8 ${page4Visible ? "animate-slideDown" : ""}`}>Save The Date</h2>
@@ -676,7 +685,7 @@ export default function Invitation() {
                       <CountdownTimer targetDate="2025-12-22T00:00:00" />
                     </div>
 
-                    <div className={`mt-12 text-center ${page4Visible ? "animate-fadeInUp" : ""}`}>
+                    <div className={`mt-12 text-center ${page4Visible ? "animate-scaleUp" : ""}`}>
                       <p className="text-white font-alice text-2xl mb-2">Senin</p>
                       <p className="text-white font-alice text-3xl font-bold mb-2">22 Desember 2025</p>
                     </div>
@@ -692,15 +701,15 @@ export default function Invitation() {
                 {/* Konten */}
                 <div className="relative z-10 flex flex-col items-center w-full">
                   {/* R & N */}
-                  <h2 className={`text-xl font-amoresa text-gray-700 mb-2 ${page5Visible ? "animate-slideDown" : ""}`}>R & N</h2>
+                  {/* <h2 className={`text-xl font-amoresa text-gray-700 mb-2 ${page5Visible ? "animate-slideDown" : ""}`}>R & N</h2> */}
 
-                  <h2 className={`text-4xl font-alice text-gray-800 mb-6 tracking-widest ${page5Visible ? "animate-fadeIn" : ""}`}>ACARA</h2>
+                  <h2 className={`text-4xl font-alice text-gray-800 mb-2 tracking-widest ${page5Visible ? "animate-scaleUp" : ""}`}>ACARA</h2>
 
-                  <p className={`text-sm text-gray-700 font-alice mb-10 ${page5Visible ? "animate-slideUp" : ""}`}>Acara yang akan kami selenggarakan :</p>
+                  <p className={`text-sm text-gray-700 font-alice mb-8 ${page5Visible ? "animate-scaleUp" : ""}`}>Yang akan kami selenggarakan :</p>
 
                   {/* Tanggal Besar */}
-                  <div className={`text-center mb-12 ${page5Visible ? "animate-fadeInUp" : ""}`}>
-                    <h3 className="text-4xl font-alice text-gray-800 mb-2">SENIN</h3>
+                  <div className={`text-center mb-12 ${page5Visible ? "animate-slideUp" : ""}`}>
+                    <h3 className="text-[34px] font-alice text-gray-800 mb-2">SENIN</h3>
 
                     <div className="flex items-center justify-center gap-4 text-gray-700 font-alice text-xl">
                       <span>22</span>
@@ -722,7 +731,7 @@ export default function Invitation() {
                   </div>
 
                   {/* Card Lokasi */}
-                  <div className={`bg-white bg-opacity-45 border border-gray-300 rounded-xl w-full max-w-md py-6 px-1 shadow-md text-center ${page5Visible ? "animate-scaleUp" : ""}`}>
+                  <div className={`bg-white bg-opacity-45 border border-gray-300 rounded-xl w-full max-w-lg py-6 shadow-md text-center ${page5Visible ? "animate-scaleUp" : ""}`}>
                     <svg
                       className="w-6 h-6 flex mx-auto mb-2"
                       fill="black"
@@ -736,7 +745,7 @@ export default function Invitation() {
                     </svg>
 
                     <p className="font-serif text-gray-800 font-bold text-sm mb-1">KEDIAMAN RUMAH</p>
-                    <p className="font-serif text-gray-800 text-sm mb-3">BPK. HAMBALI, S.Pd & IBU NUR ASIYAH, S.Pd.</p>
+                    <p className="font-serif text-gray-800 text-[12px] font-semibold mb-3">BPK. HAMBALI, S.Pd & IBU NUR ASIYAH, S.Pd.</p>
 
                     <p className="text-gray-600 font-serif text-xs leading-relaxed">Kp. Renged (Buyut Ketul), Ds. Renged RT/RW. 02/01, Kresek, Tangerang, Banten (Jl. Raya Kresek - Balaraja)</p>
                   </div>
@@ -763,14 +772,14 @@ export default function Invitation() {
                   </a>
 
                   {/* OR */}
-                  <p className={`text-gray-700 font-serif mt-4 ${page5Visible ? "animate-fadeIn" : ""}`}>or</p>
+                  <p className={`text-gray-700 font-serif mt-4 ${page5Visible ? "animate-slideUp" : ""}`}>or</p>
 
                   {/* QR Code */}
-                  <div className={`mt-4 ${page5Visible ? "animate-fadeIn-delay" : ""}`}>
+                  <div className={`mt-4 ${page5Visible ? "animate-slideUp" : ""}`}>
                     <img
                       src={qr}
                       alt="QR Code"
-                      className="w-40 h-40 mx-auto"
+                      className="w-32 h-32 mx-auto"
                     />
                     <p className="text-xs text-gray-600 mt-2">Scan Here to Google Map</p>
                   </div>
@@ -788,12 +797,10 @@ export default function Invitation() {
                 {/* Konten */}
                 <div className="relative z-10 flex flex-col items-center w-full">
                   {/* Judul */}
-                  <h2 className={`text-4xl font-amoresa text-white mb-8 ${page6Visible ? "animate-slideDown" : ""}`}>Turut Mengundang</h2>
+                  <h2 className={`text-3xl font-amoresa text-white mb-8 ${page6Visible ? "animate-slideDown" : ""}`}>Turut Mengundang</h2>
 
                   {/* Deskripsi */}
-                  <p className={`text-white text-center font-serif text-base mb-12 max-w-md ${page6Visible ? "animate-fadeIn-delay" : ""}`}>
-                    Tanpa mengurangi rasa hormat, kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk hadir di acara pernikahan kami
-                  </p>
+                  <p className={`text-white text-center font-serif text-base mb-12 max-w-md ${page6Visible ? "animate-slideUp" : ""}`}>Tanpa mengurangi rasa hormat, kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk hadir di acara pernikahan kami</p>
 
                   {/* Card List Undangan */}
                   <div className={`bg-white/10 backdrop-blur-sm border border-white rounded-xl p-8 max-w-md w-full ${page6Visible ? "animate-scaleUp" : ""}`}>
@@ -815,22 +822,22 @@ export default function Invitation() {
                   </div>
 
                   {/* Penutup */}
-                  <p className={`text-white text-center font-serif text-sm mt-12 italic ${page6Visible ? "animate-fadeIn-delay-2" : ""}`}>Merupakan suatu kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu</p>
+                  <p className={`text-white text-center font-serif text-base mt-12 italic ${page6Visible ? "animate-scaleUp" : ""}`}>Merupakan suatu kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu</p>
                 </div>
               </section>
 
               {/* Page 7 - RSVP */}
               <section
                 ref={page7Ref}
-                className="w-full min-h-screen bg-white/90 backdrop-blur-sm px-8 py-16 flex flex-col items-center"
+                className="w-full min-h-screen bg-gray-700 bg-opacity-5 px-8 py-16 flex flex-col items-center"
               >
                 {/* Title */}
-                <div className={`text-center mb-12 ${page7Visible ? "animate-slideDown" : ""}`}>
+                {/* <div className={`text-center mb-12 ${page7Visible ? "animate-slideDown" : ""}`}>
                   <h2 className="text-xl font-amoresa text-gray-700">R & N</h2>
-                </div>
+                </div> */}
 
                 {/* Heading */}
-                <h2 className={`text-4xl font-fugi text-gray-800 mb-4 ${page7Visible ? "animate-fadeIn" : ""}`}>RSVP</h2>
+                <h2 className={`text-4xl font-fugi text-gray-800 mb-4 ${page7Visible ? "animate-slideUp" : ""}`}>RSVP</h2>
 
                 {/* Subheading */}
                 <p className={`text-gray-600 text-center font-serif text-sm mb-12 ${page7Visible ? "animate-slideUp" : ""}`}>Mohon konfirmasi kehadiran Anda</p>
@@ -940,7 +947,7 @@ export default function Invitation() {
                   <h2 className={`text-4xl font-amoresa text-white mb-4 ${page8Visible ? "animate-slideDown" : ""}`}>Ucapan & Doa</h2>
 
                   {/* Subjudul */}
-                  <p className={`text-white text-center font-serif text-sm mb-12 ${page8Visible ? "animate-fadeIn" : ""}`}>Berikan ucapan dan doa untuk kami</p>
+                  <p className={`text-white text-center font-serif text-sm mb-12 ${page8Visible ? "animate-slideDown" : ""}`}>Berikan ucapan dan doa untuk kami</p>
 
                   {/* Form Ucapan */}
                   <div className={`bg-white/10 backdrop-blur-sm border border-white rounded-xl p-8 w-full max-w-md mb-8 ${page8Visible ? "animate-scaleUp" : ""}`}>
@@ -1041,47 +1048,43 @@ export default function Invitation() {
 
               {/* Page 9 - Penutup */}
               <section
-                className="w-full min-h-screen bg-white/90 backdrop-blur-sm px-8 py-16 flex flex-col items-center justify-center"
+                className="w-full bg-gray-700 bg-opacity-5 px-5 py-16 flex flex-col items-center justify-center"
                 ref={page9Ref}
               >
                 {/* Judul */}
                 <h2 className={`text-4xl font-amoresa text-gray-800 mb-8 ${page9Visible ? "animate-slideDown" : ""}`}>Terima Kasih</h2>
 
                 {/* Paragraf */}
-                <div className={`text-center max-w-md mb-12 ${page9Visible ? "animate-fadeIn" : ""}`}>
+                <div className={`text-center max-w-md mb-12 ${page9Visible ? "animate-scaleUp" : ""}`}>
                   <p className="text-gray-700 font-serif text-lg leading-relaxed mb-6">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu kepada kami.</p>
-                  <p className="text-gray-600 font-serif text-base italic">Atas kehadiran dan doa restu dari Bapak/Ibu/Saudara/i, kami ucapkan terima kasih.</p>
+                  <p className="text-gray-600 font-serif text-lg">Atas kehadiran dan doa restu dari Bapak/Ibu/Saudara/i, kami ucapkan terima kasih.</p>
+                  {/* <div className={`border-t border-gray-300 w-32 mb-8 ${page9Visible ? "animate-scaleUp" : ""}`} /> */}
+                  <p className={`text-gray-600 font-serif text-center font-semibold text-[17px] pt-6 pb-2 ${page9Visible ? "animate-slideDown" : ""}`}>Wassalamu'alaikum Warahmatullahi Wabarakatuh</p>
                 </div>
 
                 {/* Divider */}
                 <div className={`border-t border-gray-300 w-32 mb-8 ${page9Visible ? "animate-scaleUp" : ""}`} />
 
                 {/* Penutup */}
-                <div className="text-center">
-                  <p className={`text-gray-600 font-serif text-sm mb-4 ${page9Visible ? "animate-fadeIn-delay" : ""}`}>Wassalamu'alaikum Warahmatullahi Wabarakatuh</p>
-                  <p className={`text-gray-600 font-serif text-sm mb-4 ${page9Visible ? "animate-fadeIn-delay" : ""}`}>Hormat Kami</p>
+                <div className="text-center w-full">
+                  <p className={`text-gray-600 font-serif font-base text-[17px] mb-4 ${page9Visible ? "animate-slideDown" : ""}`}>Hormat Kami</p>
 
                   {/* Nama pasangan 1 */}
-                  <h3 className={`text-xl font-amoresa text-gray-700 mb-1 ${page9Visible ? "animate-slideLeft" : ""}`}>Hambali, S.Pd.</h3>
-                  <h3 className={`text-xl font-amoresa text-gray-700 mb-1 ${page9Visible ? "animate-slideLeft" : ""}`}>&</h3>
-                  <h3 className={`text-xl font-amoresa text-gray-700 mb-1 ${page9Visible ? "animate-slideLeft" : ""}`}>Nur Asiyah, S.Pd.</h3>
-
-                  {/* Divider image */}
-                  <div className={`w-64 h-32 mx-auto -mt-14 ${page9Visible ? "animate-scaleUp" : ""}`}>
-                    <img
-                      src={underline}
-                      alt=""
-                    />
-                  </div>
-
+                  <span className="font-semibold text-gray-700 text-center">Hambali, S.Pd. & Nur Asiyah, S.Pd.</span>
+                  <br />
                   {/* Nama pasangan 2 */}
-                  <h3 className={`text-xl font-amoresa text-gray-700 mb-2 ${page9Visible ? "animate-slideRight" : ""}`}>Riki Nurhamzah, S.H.</h3>
-                  <h3 className={`text-xl font-amoresa text-gray-700 mb-2 ${page9Visible ? "animate-slideRight" : ""}`}>&</h3>
-                  <h3 className={`text-xl font-amoresa text-gray-700 mb-2 ${page9Visible ? "animate-slideRight" : ""}`}>Suratun Nufus, S.M.</h3>
+                  <span className="font-semibold text-gray-700 text-center">Riki Nurhamzah, S.H. & Suratun Nufus, S.M.</span>
+                </div>
+                {/* Divider image */}
+                <div className={`w-64 h-32 mx-auto -mt-14 ${page9Visible ? "animate-scaleUp" : ""}`}>
+                  <img
+                    src={underline}
+                    alt=""
+                  />
                 </div>
 
                 {/* Social Media */}
-                <div className="flex gap-4 mt-12">
+                {/* <div className="flex gap-4 mt-12">
                   <a
                     href="https://instagram.com/rikihamzah_mc"
                     target="_blank"
@@ -1111,7 +1114,7 @@ export default function Invitation() {
                       <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
                     </svg>
                   </a>
-                </div>
+                </div> */}
               </section>
 
               {/* Footer - DigiatGroup */}
@@ -1133,13 +1136,28 @@ export default function Invitation() {
                   <p className="text-white/60 font-serif text-xs mb-2">Made with ❤️ by</p>
 
                   <h3 className={`text-2xl font-bold text-white mb-1 ${footerVisible ? "animate-slideUp" : ""}`}>DiGiatGroup</h3>
-
-                  <p className={`text-white/40 font-serif text-xs ${footerVisible ? "animate-fadeIn-delay" : ""}`}>Digital Wedding Invitation</p>
+                  <div className="flex items-center justify-center pb-2 pt-1">
+                    <a
+                      href="https://instagram.com/zhrtnufuss"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center hover:scale-110 transition-all ${page9Visible ? "animate-scaleUp" : ""}`}
+                    >
+                      <svg
+                        className="w-5 h-5"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                      </svg>
+                    </a>
+                  </div>
+                  <p className={`text-white/40 font-serif text-xs ${footerVisible ? "animate-slideDown" : ""}`}>Digital Wedding Invitation</p>
                 </div>
 
                 <div className={`relative z-10 border-t border-white/20 w-full max-w-xs my-4 ${footerVisible ? "animate-scaleUp" : ""}`}></div>
 
-                <p className={`relative z-10 text-white/40 text-xs font-serif ${footerVisible ? "animate-fadeIn-delay-2" : ""}`}>© 2025 All Rights Reserved</p>
+                <p className={`relative z-10 text-white/40 text-xs font-serif ${footerVisible ? "animate-slideDown" : ""}`}>© 2025 All Rights Reserved</p>
               </footer>
             </div>
           </div>

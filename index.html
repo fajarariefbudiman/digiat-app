@@ -1,40 +1,79 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
   <head>
     <meta charset="UTF-8" />
-    <link
-      rel="icon"
-      type="image/svg+xml"
-      href="/public/img/digiat.png"
+
+    <meta
+      http-equiv="X-UA-Compatible"
+      content="IE=edge"
     />
+
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1.0"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     />
-    <meta property="og:title" content="Undangan Pernikahan Riki & Nufus" />
-    <meta property="og:description" content="Kami mengundang Anda untuk hadir di acara pernikahan kami" />
-    <meta property="og:image" content="https://digiat-app.vercel.app/img/prewed4.jpeg" />
-    <meta property="og:url" content="https://digiat-app.vercel.app" />
-    <meta property="og:type" content="website" />
-  
-  <!-- Twitter Card (opsional, untuk platform lain) -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:image" content="https://digiat-app.vercel.app/img/prewed4.jpeg" />
+
+    <link
+      rel="icon"
+      type="image/png"
+      href="/img/digiat.png"
+    />
+
+    <meta
+      property="og:title"
+      content="Undangan Pernikahan Riki & Nufus"
+    />
+    <meta
+      property="og:description"
+      content="Kami mengundang Anda untuk hadir di acara pernikahan kami"
+    />
+    <meta
+      property="og:image"
+      content="https://digiat-app.vercel.app/img/prewed4.jpeg"
+    />
+    <meta
+      property="og:url"
+      content="https://digiat-app.vercel.app"
+    />
+    <meta
+      property="og:type"
+      content="website"
+    />
+
+    <meta
+      name="twitter:card"
+      content="summary_large_image"
+    />
+    <meta
+      name="twitter:image"
+      content="https://digiat-app.vercel.app/img/prewed4.jpeg"
+    />
+
     <title>DiGiat - App</title>
+
     <script>
-      (function () {
+      try {
         const storedTheme = localStorage.getItem("digiat-theme");
-        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
         const theme = storedTheme || (prefersDark ? "dark" : "light");
         document.documentElement.classList.add(theme);
-      })();
+      } catch (e) {
+        document.documentElement.classList.add("light");
+      }
     </script>
   </head>
+
   <body>
     <div id="root"></div>
+
+    <!-- MODULE -->
     <script
       type="module"
       src="/src/main.tsx"
     ></script>
+
+    <script nomodule>
+      alert("Browser Anda terlalu lama. Silakan gunakan Chrome untuk pengalaman terbaik.");
+    </script>
   </body>
 </html>
