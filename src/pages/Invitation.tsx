@@ -373,7 +373,7 @@ export default function Invitation() {
               <div className="flex flex-col items-center space-y-6">
                 {/* R & N */}
                 <div className="animate-slideDown">
-                  <h1 className="text-2xl font-amoresa text-slate-700 tracking-wider drop-shadow-lg">R & N</h1>
+                  <h1 className="text-2xl font-amoresa text-slate-950 tracking-wider drop-shadow-lg">R & N</h1>
                 </div>
 
                 {/* Undangan Acara Walimah */}
