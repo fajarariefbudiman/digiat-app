@@ -1059,9 +1059,12 @@ export default function Invitation() {
                 {/* Penutup */}
                 <div className="text-center">
                   <p className={`text-gray-600 font-serif text-sm mb-4 ${page9Visible ? "animate-fadeIn-delay" : ""}`}>Wassalamu'alaikum Warahmatullahi Wabarakatuh</p>
+                  <p className={`text-gray-600 font-serif text-sm mb-4 ${page9Visible ? "animate-fadeIn-delay" : ""}`}>Hormat Kami</p>
 
                   {/* Nama pasangan 1 */}
-                  <h3 className={`text-xl font-amoresa text-gray-700 mb-1 ${page9Visible ? "animate-slideLeft" : ""}`}>Hambali, S.Pd. & Nur Asiyah, S.Pd.</h3>
+                  <h3 className={`text-xl font-amoresa text-gray-700 mb-1 ${page9Visible ? "animate-slideLeft" : ""}`}>Hambali, S.Pd.</h3>
+                  <h3 className={`text-xl font-amoresa text-gray-700 mb-1 ${page9Visible ? "animate-slideLeft" : ""}`}>&</h3>
+                  <h3 className={`text-xl font-amoresa text-gray-700 mb-1 ${page9Visible ? "animate-slideLeft" : ""}`}>Nur Asiyah, S.Pd.</h3>
 
                   {/* Divider image */}
                   <div className={`w-64 h-32 mx-auto -mt-14 ${page9Visible ? "animate-scaleUp" : ""}`}>
@@ -1072,7 +1075,9 @@ export default function Invitation() {
                   </div>
 
                   {/* Nama pasangan 2 */}
-                  <h3 className={`text-xl font-amoresa text-gray-700 mb-2 ${page9Visible ? "animate-slideRight" : ""}`}>Riki Nurhamzah, S.H. & Suratun Nufus, S.M.</h3>
+                  <h3 className={`text-xl font-amoresa text-gray-700 mb-2 ${page9Visible ? "animate-slideRight" : ""}`}>Riki Nurhamzah, S.H.</h3>
+                  <h3 className={`text-xl font-amoresa text-gray-700 mb-2 ${page9Visible ? "animate-slideRight" : ""}`}>&</h3>
+                  <h3 className={`text-xl font-amoresa text-gray-700 mb-2 ${page9Visible ? "animate-slideRight" : ""}`}>Suratun Nufus, S.M.</h3>
                 </div>
 
                 {/* Social Media */}
