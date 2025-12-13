@@ -11,6 +11,9 @@ All colors MUST be HSL.
   font-weight: normal;
   font-style: normal;
 }
+.force-dark-text {
+  color: #000000 !important;
+}
 @font-face {
   font-family: "Aboreto";
   src: url("/fonts/Aboreto-Regular.ttf") format("truetype");
