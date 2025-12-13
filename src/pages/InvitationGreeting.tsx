@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Upload, Plus, Trash2, Download } from "lucide-react";
-
+import mainFoto from "../assets/prewed4.jpeg";
 export default function SendInvitation() {
   const [inviterName, setInviterName] = useState("");
   const [guestList, setGuestList] = useState("");
@@ -15,18 +15,24 @@ export default function SendInvitation() {
 
   const greetingTemplates = {
     Formal:
-      "Kepada Yth.\nBapak/Ibu/Saudara/i\n*[nama]*\n_____________________\n\n*Om Swastiastu*\n\nTanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i, teman sekaligus sahabat, untuk menghadiri acara pernikahan kami.\n\n*Berikut link undangan kami*, untuk info lengkap dari acara, bisa kunjungi :\n[link-undangan]\n\nMerupakan suatu kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan untuk hadir dan memberikan doa restu.\n\n*Om Shanti, Shanti, Shanti, Om*\n\nTerima Kasih\n\nHormat kami,\n[mempelai]\n____________________",
+      "Kepada Yth.\nBapak/Ibu/Saudara/i\n*[nama]*\n_____________________\n\n*Selamat Pagi*\n\nTanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i, teman sekaligus sahabat, untuk menghadiri acara pernikahan kami.\n\n*Berikut link undangan kami*, untuk info lengkap dari acara, bisa kunjungi :\n[link-undangan]\n\nMerupakan suatu kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan untuk hadir dan memberikan doa restu.\n\n*Selamat Pagi*\n\nTerima Kasih\n\nHormat kami,\nHambali, S.Pd. dan Nur Asiyah, S.Pd.\nRiki Nurhamzah, S.H. dan Suratun Nufus, S.M.\n____________________",
+
     Muslim:
-      "Kepada Yth.\nBapak/Ibu/Saudara/i\n*[nama]*\n_____________________\n\n*Bismillahirrahmanirrahim*\n*Assalamualaikum Wr. Wb.*\n\nTanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i, teman sekaligus sahabat, untuk menghadiri acara pernikahan kami.\n\n*Berikut link undangan kami*, untuk info lengkap dari acara, bisa kunjungi :\n[link-undangan]\n\nMerupakan suatu kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan untuk hadir dan memberikan doa restu.\n\nJazakallah Khair\n\n*Wassalamualaikum Wr. Wb.*\n\n[mempelai]\n____________________",
+      "Kepada Yth.\nBapak/Ibu/Saudara/i\n*[nama]*\n_____________________\n\n*Bismillahirrahmanirrahim*\n*Assalamualaikum Wr. Wb.*\n\nTanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i, teman sekaligus sahabat, untuk menghadiri acara pernikahan kami.\n\n*Berikut link undangan kami*, untuk info lengkap dari acara, bisa kunjungi :\n[link-undangan]\n\nMerupakan suatu kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan untuk hadir dan memberikan doa restu.\n\nJazakallah Khair\n\n*Wassalamualaikum Wr. Wb.*\n\nHambali, S.Pd. dan Nur Asiyah, S.Pd.\nRiki Nurhamzah, S.H. dan Suratun Nufus, S.M.\n____________________",
+
     Nasrani:
-      "Kepada Yth.\nBapak/Ibu/Saudara/i\n*[nama]*\n_____________________\n\n*Tuhan memberkati*\n\nTanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i, teman sekaligus sahabat, untuk menghadiri acara pernikahan kami.\n\n*Berikut link undangan kami*, untuk info lengkap dari acara, bisa kunjungi :\n[link-undangan]\n\nMerupakan suatu kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan untuk hadir dan memberikan doa restu.\n\nTerima kasih\n\nSalam kasih,\n[mempelai]\n____________________",
+      "Kepada Yth.\nBapak/Ibu/Saudara/i\n*[nama]*\n_____________________\n\n*Tuhan memberkati*\n\nTanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i, teman sekaligus sahabat, untuk menghadiri acara pernikahan kami.\n\n*Berikut link undangan kami*, untuk info lengkap dari acara, bisa kunjungi :\n[link-undangan]\n\nMerupakan suatu kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan untuk hadir dan memberikan doa restu.\n\nTerima kasih\n\nSalam kasih,\nHambali, S.Pd. dan Nur Asiyah, S.Pd.\nRiki Nurhamzah, S.H. dan Suratun Nufus, S.M.\n____________________",
+
     Hindu:
-      "Kepada Yth.\nBapak/Ibu/Saudara/i\n*[nama]*\n_____________________\n\n*Om Swastiastu*\n\nTanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i, teman sekaligus sahabat, untuk menghadiri acara pernikahan kami.\n\n*Berikut link undangan kami*, untuk info lengkap dari acara, bisa kunjungi :\n[link-undangan]\n\nMerupakan suatu kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan untuk hadir dan memberikan doa restu.\n\n*Om Shanti, Shanti, Shanti, Om*\n\nTerima kasih\n\n[mempelai]\n____________________",
+      "Kepada Yth.\nBapak/Ibu/Saudara/i\n*[nama]*\n_____________________\n\n*Om Swastiastu*\n\nTanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i, teman sekaligus sahabat, untuk menghadiri acara pernikahan kami.\n\n*Berikut link undangan kami*, untuk info lengkap dari acara, bisa kunjungi :\n[link-undangan]\n\nMerupakan suatu kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan untuk hadir dan memberikan doa restu.\n\n*Om Shanti, Shanti, Shanti, Om*\n\nTerima kasih\n\nHambali, S.Pd. dan Nur Asiyah, S.Pd.\nRiki Nurhamzah, S.H. dan Suratun Nufus, S.M.\n____________________",
+
     Khitan:
-      "Kepada Yth.\nBapak/Ibu/Saudara/i\n*[nama]*\n_____________________\n\n*Barakallah*\n*Assalamualaikum Wr. Wb.*\n\nTanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i, teman sekaligus sahabat, untuk menghadiri acara khitan putra kami.\n\n*Berikut link undangan kami*, untuk info lengkap dari acara, bisa kunjungi :\n[link-undangan]\n\nMerupakan suatu kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan untuk hadir dan memberikan doa restu.\n\nTerima kasih\n\n*Wassalam*\n\n[mempelai]\n____________________",
+      "Kepada Yth.\nBapak/Ibu/Saudara/i\n*[nama]*\n_____________________\n\n*Barakallah*\n*Assalamualaikum Wr. Wb.*\n\nTanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i, teman sekaligus sahabat, untuk menghadiri acara khitan putra kami.\n\n*Berikut link undangan kami*, untuk info lengkap dari acara, bisa kunjungi :\n[link-undangan]\n\nMerupakan suatu kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan untuk hadir dan memberikan doa restu.\n\nTerima kasih\n\n*Wassalam*\n\nHambali, S.Pd. dan Nur Asiyah, S.Pd.\nRiki Nurhamzah, S.H. dan Suratun Nufus, S.M.\n____________________",
+
     English:
-      "Dear\nMr./Mrs./Ms.\n*[nama]*\n_____________________\n\n*Thank you*\n\nWith all due respect, we would like to invite you, our friend and companion, to attend our wedding ceremony.\n\n*Here is our invitation link*, for complete information about the event, please visit:\n[link-undangan]\n\nIt would be an honor for us if you could attend and give us your blessings.\n\nBest regards,\n[bride & groom]\n____________________",
+      "Dear\nMr./Mrs./Ms.\n*[nama]*\n_____________________\n\n*Thank you*\n\nWith all due respect, we would like to invite you, our friend and companion, to attend our wedding ceremony.\n\n*Here is our invitation link*, for complete information about the event, please visit:\n[link-undangan]\n\nIt would be an honor for us if you could attend and give us your blessings.\n\nBest regards,\nHambali, S.Pd. & Nur Asiyah, S.Pd.\nRiki Nurhamzah, S.H. & Suratun Nufus, S.M.\n____________________",
   };
+
   useEffect(() => {
     if (selectedGreeting !== "Custom") {
       setCustomGreeting(greetingTemplates[selectedGreeting]);
@@ -82,7 +88,7 @@ export default function SendInvitation() {
     return template
       .replace(/\*\[nama\]\*/g, name)
       .replace("[link-undangan]", `${invUrl}?to=${encodeURIComponent(name)}`)
-      .replace("[mempelai]", inviterName || "")
+      // .replace("[mempelai]", inviterName || "")
       .trim();
   };
 
