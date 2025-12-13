@@ -1134,7 +1134,7 @@ export default function Invitation() {
                   <h3 className={`text-2xl font-bold text-white mb-1 ${footerVisible ? "animate-slideUp" : ""}`}>DiGiatGroup</h3>
                   <div className="flex items-center justify-center pb-2 pt-1">
                     <a
-                      href="https://instagram.com/zhrtnufuss"
+                      href="https://www.instagram.com/digiatid/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className={`w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center hover:scale-110 transition-all ${page9Visible ? "animate-scaleUp" : ""}`}
