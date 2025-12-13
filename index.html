@@ -48,6 +48,10 @@
       name="twitter:image"
       content="https://digiat-app.vercel.app/img/prewed4.jpeg"
     />
+    <meta
+      name="color-scheme"
+      content="light only"
+    />
 
     <title>DiGiat - App</title>
 
@@ -61,6 +65,11 @@
         document.documentElement.classList.add("light");
       }
     </script> -->
+    <script>
+      // Force light mode
+      document.documentElement.classList.add("light");
+      document.documentElement.classList.remove("dark");
+    </script>
   </head>
 
   <body>
