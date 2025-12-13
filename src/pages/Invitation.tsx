@@ -516,7 +516,7 @@ export default function Invitation() {
 
               <section
                 ref={greetingRef}
-                className="w-full bg-transparent bg-opacity-90 px-8 py-12 flex flex-col items-center"
+                className="w-full bg-transparent bg-opacity-90 px-3 py-12 flex flex-col items-center"
               >
                 {/* Title */}
                 <div className={`text-center mb-12 ${greetingVisible ? "animate-scaleUp" : "scroll-animate"}`}>
