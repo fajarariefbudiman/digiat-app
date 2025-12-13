@@ -522,7 +522,7 @@ export default function Invitation() {
                 <div className={`text-center mb-12 ${greetingVisible ? "animate-scaleUp" : "scroll-animate"}`}>
                   <h2 className="text-xl font-amoresa text-gray-700">R & N</h2>
                 </div>
-                <div className={`bg-black bg-opacity-10 border border-white rounded-xl p-8 mt-4 max-w-md w-full shadow-md backdrop-blur-sm ${greetingVisible ? "animate-slideUp" : "scroll-animate"}`}>
+                <div className={`bg-black bg-opacity-10 border border-white rounded-xl py-8 px-2 mt-4 max-w-md w-full shadow-md backdrop-blur-sm ${greetingVisible ? "animate-slideUp" : "scroll-animate"}`}>
                   <p className={`text-gray-700 text-center font-serif text-base mb-6 ${greetingVisible ? "animate-scaleUp" : "scroll-animate"}`}>Assalamu'alaikum Warahmatullahi Wabarakatuh</p>
                   <p className={`text-gray-700 text-center font-serif text-sm leading-relaxed mb-8 ${greetingVisible ? "animate-scaleUp" : "scroll-animate"}`}>
                     Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud menyelenggarakan acara "Walimah Ngunduh Mantu" pernikahan putra-putri kami:
