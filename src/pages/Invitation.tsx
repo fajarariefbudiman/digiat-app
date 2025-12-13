@@ -1070,10 +1070,10 @@ export default function Invitation() {
                   <p className={`text-gray-600 font-serif font-base text-[17px] mb-4 ${page9Visible ? "animate-slideDown" : ""}`}>Hormat Kami</p>
 
                   {/* Nama pasangan 1 */}
-                  <span className="font-semibold text-gray-700 text-center">Hambali, S.Pd. & Nur Asiyah, S.Pd.</span>
+                  <span className="font-semibold text-gray-600 text-center">Hambali, S.Pd. & Nur Asiyah, S.Pd.</span>
                   <br />
                   {/* Nama pasangan 2 */}
-                  <span className="font-semibold text-gray-700 text-center">Riki Nurhamzah, S.H. & Suratun Nufus, S.M.</span>
+                  <span className="font-semibold text-gray-600 text-center">Riki Nurhamzah, S.H. & Suratun Nufus, S.M.</span>
                 </div>
                 {/* Divider image */}
                 <div className={`w-64 h-32 mx-auto -mt-14 ${page9Visible ? "animate-scaleUp" : ""}`}>
