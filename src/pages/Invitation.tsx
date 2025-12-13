@@ -611,7 +611,7 @@ export default function Invitation() {
                     <div className={`text-center bg-white bg-opacity-50 py-10 rounded-lg ${isOpened && page3Visible ? "animate-scaleUp" : "scroll-animate"}`}>
                       <h4 className="font-alexbrush text-4xl text-gray-700 mb-1">Riki Nurhamzah, S.H.</h4>
 
-                      <p className="text-[12px] font-serif text-gray-700 mb-6 leading-relaxed">Putra Pertama dari Bpk Hambali, S.Pd & Ibu Nur Asiyah, S.Pd.</p>
+                      <p className="text-[12px] font-serif text-gray-700 mb-6 leading-relaxed">Putra Pertama Bpk Hambali, S.Pd & Ibu Nur Asiyah, S.Pd.</p>
                       <div className="bg-black bg-opacity-5 rounded-md w-fit px-2 py-1 mx-auto">
                         <a
                           href="https://instagram.com/rikihamzah_mc"
