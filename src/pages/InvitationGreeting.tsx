@@ -15,7 +15,7 @@ export default function SendInvitation() {
 
   const greetingTemplates = {
     Formal:
-      "Kepada Yth.\nBapak/Ibu/Saudara/i\n*[nama]*\n_____________________\n\n*Selamat Pagi*\n\nTanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i, teman sekaligus sahabat, untuk menghadiri acara pernikahan kami.\n\n*Berikut link undangan kami*, untuk info lengkap dari acara, bisa kunjungi :\n[link-undangan]\n\nMerupakan suatu kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan untuk hadir dan memberikan doa restu.\n\n*Selamat Pagi*\n\nTerima Kasih\n\nHormat kami,\nHambali, S.Pd. dan Nur Asiyah, S.Pd.\nRiki Nurhamzah, S.H. dan Suratun Nufus, S.M.\n____________________",
+      "Kepada Yth.\nBapak/Ibu/Saudara/i\n*[nama]*\n_____________________\n\n*Assalamu’alaikum Wr. Wb.*\n\nDengan tidak mengurangi rasa hormat, kami bermaksud mengundang Bapak/Ibu dan Sahabat berkenan hadir sebagaimana undangan berikut.\n\nLink undangan kami:\n[link-undangan]\n\nKami mengharapkan kehadiran Bapak/Ibu dan Sahabat sekalian.\n\nAtas perhatian dan do'a restunya, kami ucapkan\n\nTerima Kasih\n\n____________________\n\n*Wassalamu’alaikum Wr. Wb.*\n\nSalam hormat,\n*Hambali, S.Pd. & Nur Asiyah, S.Pd.*",
 
     Muslim:
       "Kepada Yth.\nBapak/Ibu/Saudara/i\n*[nama]*\n_____________________\n\n*Bismillahirrahmanirrahim*\n*Assalamualaikum Wr. Wb.*\n\nTanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i, teman sekaligus sahabat, untuk menghadiri acara pernikahan kami.\n\n*Berikut link undangan kami*, untuk info lengkap dari acara, bisa kunjungi :\n[link-undangan]\n\nMerupakan suatu kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan untuk hadir dan memberikan doa restu.\n\nJazakallah Khair\n\n*Wassalamualaikum Wr. Wb.*\n\nHambali, S.Pd. dan Nur Asiyah, S.Pd.\nRiki Nurhamzah, S.H. dan Suratun Nufus, S.M.\n____________________",
@@ -85,11 +85,13 @@ export default function SendInvitation() {
   };
 
   const generateMessage = (template, name) => {
-    return template
-      .replace(/\*\[nama\]\*/g, name)
-      .replace("[link-undangan]", `${invUrl}?to=${encodeURIComponent(name)}`)
-      // .replace("[mempelai]", inviterName || "")
-      .trim();
+    return (
+      template
+        .replace(/\*\[nama\]\*/g, name)
+        .replace("[link-undangan]", `${invUrl}?to=${encodeURIComponent(name)}`)
+        // .replace("[mempelai]", inviterName || "")
+        .trim()
+    );
   };
 
   return (
@@ -114,7 +116,7 @@ export default function SendInvitation() {
 
         {/* Form Section */}
         <div className="bg-white rounded-lg shadow-md p-6 mb-6 text-gray-700">
-          <div className="mb-6">
+          {/* <div className="mb-6">
             <label className="block text-sm font-semibold text-gray-700 mb-2">
               Yang Mengundang <span className="text-red-500">*</span>
             </label>
@@ -125,7 +127,7 @@ export default function SendInvitation() {
               placeholder="Fajar"
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
-          </div>
+          </div> */}
 
           <div className="mb-6">
             <label className="block text-sm font-semibold text-gray-700 mb-2">List Nama Tamu Undangan</label>
